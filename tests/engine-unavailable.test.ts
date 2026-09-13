@@ -45,7 +45,7 @@ async function run(tool: unknown, input: unknown): Promise<unknown> {
   return await (tool as Executable).execute(input as never, CTX as never);
 }
 
-/** What every tool must answer with when PapaFlow's backend is not configured. */
+/** What every tool must answer with when HERCULES's backend is not configured. */
 function expectTerminal(result: unknown) {
   expect(result).toMatchObject({ ok: false, error: "service_unavailable", retryable: false });
   expect(String((result as { message: string }).message)).toContain(
@@ -76,7 +76,7 @@ describe("the Builder's tool guard", () => {
       ok: false,
       error: "service_unavailable",
       retryable: false,
-      message: "The Builder cannot reach PapaFlow's backend: builder-engine: CONVEX_URL is not set.",
+      message: "The Builder cannot reach HERCULES's backend: builder-engine: CONVEX_URL is not set.",
     });
     expect(isToolFailure(failure)).toBe(true);
   });
@@ -166,7 +166,7 @@ describe("the Builder's tool guard", () => {
 
   it("describes a thrown non-error without inventing a cause", () => {
     expect(serviceUnavailable(undefined).message).toBe(
-      "The Builder cannot reach PapaFlow's backend: the backend could not be reached.",
+      "The Builder cannot reach HERCULES's backend: the backend could not be reached.",
     );
   });
 

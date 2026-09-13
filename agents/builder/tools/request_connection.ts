@@ -37,7 +37,7 @@ import { isToolFailure } from "../lib/tool-result";
  */
 export default defineTool({
   description:
-    "Ask the user to connect an app PapaFlow has no credential for yet, and wait for them to do " +
+    "Ask the user to connect an app HERCULES has no credential for yet, and wait for them to do " +
     "it. Returns the connectionId to configure the node with. Never ask for a key, a token or a " +
     "password in chat — this tool is the only way to get one, and you never see it.",
   inputSchema: z.object({
@@ -64,7 +64,7 @@ export default defineTool({
     const usable = context.existing.filter((connection) => connection.status === "active");
     const pending = ask(ctx, {
       prompt:
-        `PapaFlow needs a ${context.providerName} connection. ${reason}` +
+        `HERCULES needs a ${context.providerName} connection. ${reason}` +
         (usable.length > 0
           ? "\n\nPick one this workspace already has, or add a new one."
           : "\n\nAdd one below — the credential goes straight into the vault and I never see it."),

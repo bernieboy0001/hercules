@@ -9,7 +9,7 @@ import {
 } from "@/components/marketing/primitives";
 
 export const metadata: Metadata = {
-  title: "Docs — PapaFlow",
+  title: "Docs — HERCULES",
   description:
     "The written docs are being assembled. Until they land, here is the short version of getting a workflow running.",
 };
@@ -21,7 +21,7 @@ const QUICKSTART = [
   },
   {
     title: "Add a connection",
-    body: "Connections → Add. Pick a provider, paste the credential, and PapaFlow calls the provider to check it before saving. Only the last four characters are ever shown again.",
+    body: "Connections → Add. Pick a provider, paste the credential, and HERCULES calls the provider to check it before saving. Only the last four characters are ever shown again.",
   },
   {
     title: "Draw a workflow",

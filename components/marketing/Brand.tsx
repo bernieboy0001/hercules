@@ -45,7 +45,7 @@ export function Wordmark({
     >
       <BrandMark />
       <span className="pf-display text-base font-semibold tracking-tight">
-        PapaFlow
+        HERCULES
       </span>
     </Link>
   );

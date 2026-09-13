@@ -57,7 +57,7 @@ export function readIdentity(ctx: AuthedContext): BuilderIdentity | { error: str
   if (!orgId || !userId) {
     return {
       error:
-        "This session is not signed in to a PapaFlow organisation, so there is nothing to edit. " +
+        "This session is not signed in to a HERCULES organisation, so there is nothing to edit. " +
         "Open the Build with AI panel from a workflow canvas.",
     };
   }

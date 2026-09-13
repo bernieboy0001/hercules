@@ -14,7 +14,7 @@ import { DEFAULT_PLAN, isPlanSlug, type PlanSlug } from "@/lib/plans";
  * `lib/connections-engine.ts` is the same Convex conversation without the workflow imports.
  *
  * Clerk stays the source of truth for billing (CLAUDE.md rule 10): the plan is *not* read from
- * anything PapaFlow stores. The session token's `pla` claim would be cheaper, but it is minted for
+ * anything HERCULES stores. The session token's `pla` claim would be cheaper, but it is minted for
  * up to a minute and a Builder session outlives that, so the gate asks Clerk.
  */
 

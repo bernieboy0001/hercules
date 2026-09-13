@@ -1,4 +1,4 @@
-# PapaFlow — the rebuild prompt
+# HERCULES — the rebuild prompt
 
 > **How to use this file.** Start a fresh Claude Code session in an **empty directory** and paste
 > everything below the horizontal rule as the first message. It is self-contained: it does not
@@ -9,7 +9,7 @@
 
 ---
 
-You are building **PapaFlow** from scratch: an n8n-style, multi-tenant workflow-automation SaaS
+You are building **HERCULES** from scratch: an n8n-style, multi-tenant workflow-automation SaaS
 where organisations bring their own AI keys and app credentials, draw workflows on a canvas (or
 have an AI builder draw them), publish them so webhooks / forms / schedules / chat events start
 them, and every run executes durably. Build the whole product end to end — engine, UI, billing,
@@ -218,7 +218,7 @@ membership or plan tables.
 | `webhookEvents` | `source, eventId, receivedAt` (delivery dedupe) | `by_source_event` |
 
 Graph node shape stored in `workflows.graph.nodes[]`:
-`{ id, type: "papaflow", position: {x,y}, width?, height?, data: { nodeType, key, label, inputs } }`
+`{ id, type: "hercules", position: {x,y}, width?, height?, data: { nodeType, key, label, inputs } }`
 where `key` matches `/^[a-z][a-z0-9_]*$/`, is unique per workflow and is what templates address
 (`{{ key.field }}`). Edges: `{ id, source, target, sourceHandle? }`. Runtime-only fields
 (`status`, `durationMs`, setup state) are stripped before saving.
@@ -683,7 +683,7 @@ Order matters. **CLI** = you run it; **MANUAL** = a dashboard step for me.
    section 2, `pnpm dlx shadcn@4.20.0 init -d` and add: button input dialog sheet dropdown-menu
    badge tabs tooltip sonner card select textarea label separator scroll-area command popover
    switch table skeleton input-group alert-dialog. `git init -b main`; private GitHub repo.
-3. Clerk (CLI): `clerk apps create "PapaFlow" --json` → `clerk link --app <id>` →
+3. Clerk (CLI): `clerk apps create "HERCULES" --json` → `clerk link --app <id>` →
    `clerk enable orgs --max-members 5 --yes` → `clerk env pull --file .env.local`; add
    `NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in`, `NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up`.
 4. Convex (CLI): `pnpm convex:dev` once `convex/schema.ts` exists (writes `CONVEX_DEPLOYMENT`,

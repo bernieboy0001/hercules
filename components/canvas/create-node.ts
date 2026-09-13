@@ -1,6 +1,6 @@
 import { NODES } from "@/nodes/registry";
 
-import { nextKey, PAPAFLOW_NODE_TYPE, type WorkflowNodeType } from "./graph-io";
+import { nextKey, HERCULES_NODE_TYPE, type WorkflowNodeType } from "./graph-io";
 
 /**
  * One palette entry, turned into a node on the canvas.
@@ -30,7 +30,7 @@ export function createNodeFromPalette(
 
   return {
     id,
-    type: PAPAFLOW_NODE_TYPE,
+    type: HERCULES_NODE_TYPE,
     position: { x: position.x, y: position.y },
     data: {
       nodeType,

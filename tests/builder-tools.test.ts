@@ -320,7 +320,7 @@ function toolPart(overrides: Partial<Record<string, unknown>>): Part {
         inputRequest: {
           requestId: "req_1",
           kind: "question",
-          prompt: "PapaFlow needs a Notion connection.",
+          prompt: "HERCULES needs a Notion connection.",
           display: "confirmation",
           allowFreeform: true,
           options: [
@@ -345,7 +345,7 @@ describe("pendingConnectionRequests", () => {
       {
         requestId: "req_1",
         provider: "notion",
-        prompt: "PapaFlow needs a Notion connection.",
+        prompt: "HERCULES needs a Notion connection.",
         options: [{ id: "conn_existing", label: 'Use "Team wiki"' }],
       },
     ]);

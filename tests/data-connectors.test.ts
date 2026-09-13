@@ -146,7 +146,7 @@ describe("notion connector", () => {
   it("validates the token with users/me and sends the pinned Notion-Version", async () => {
     const calls = stubFetch({
       [NOTION_ME]: {
-        body: { object: "user", id: "bot_1", name: "PapaFlow", bot: { workspace_name: "Acme" } },
+        body: { object: "user", id: "bot_1", name: "HERCULES", bot: { workspace_name: "Acme" } },
       },
     });
 
@@ -163,10 +163,10 @@ describe("notion connector", () => {
   });
 
   it("falls back to the bot's own name when the workspace is unnamed", async () => {
-    stubFetch({ [NOTION_ME]: { body: { id: "bot_1", name: "PapaFlow" } } });
+    stubFetch({ [NOTION_ME]: { body: { id: "bot_1", name: "HERCULES" } } });
 
     const result = expectOk(await notionConnector.test({ apiKey: NOTION_KEY }));
-    expect(result.label).toBe("Notion (PapaFlow)");
+    expect(result.label).toBe("Notion (HERCULES)");
     expect(result.meta).toEqual({ bot_id: "bot_1" });
   });
 
@@ -565,7 +565,7 @@ describe("github connector", () => {
     for (const call of calls) {
       expect(call.headers.Authorization).toBe(`Bearer ${GITHUB_TOKEN}`);
       expect(call.headers["X-GitHub-Api-Version"]).toBe("2026-03-10");
-      expect(call.headers["User-Agent"]).toBe("papaflow/0.1");
+      expect(call.headers["User-Agent"]).toBe("hercules/0.1");
     }
 
     expect(result.label).toBe("GitHub (acme/site)");
@@ -639,7 +639,7 @@ describe("teams connector", () => {
     expect(body.type).toBe("message");
     expect(body.attachments[0].contentType).toBe("application/vnd.microsoft.card.adaptive");
     expect(body.attachments[0].content).toMatchObject({ type: "AdaptiveCard", version: "1.4" });
-    expect(body.attachments[0].content.body).toEqual([{ type: "TextBlock", text: "PapaFlow connected" }]);
+    expect(body.attachments[0].content.body).toEqual([{ type: "TextBlock", text: "HERCULES connected" }]);
 
     expect(result.label).toBe("Microsoft Teams");
     expect(result.hint).toBe(TEAMS_URL.slice(-4));
@@ -694,7 +694,7 @@ describe("resend connector", () => {
     expect(calls[0]).toMatchObject({ url: RESEND_DOMAINS, method: "GET" });
     expect(calls[0].headers.Authorization).toBe(`Bearer ${RESEND_KEY}`);
     // Resend blocks a request with no User-Agent before it reaches the API (403, error 1010).
-    expect(calls[0].headers["User-Agent"]).toBe("papaflow/0.1");
+    expect(calls[0].headers["User-Agent"]).toBe("hercules/0.1");
 
     expect(result.label).toBe("Resend (mail.acme.com)");
     expect(result.hint).toBe(RESEND_KEY.slice(-4));

@@ -21,7 +21,7 @@ import { WORKFLOW_TEMPLATES } from "@/lib/templates";
 function node(id: string, nodeType: string, label: string): TemplateNode {
   return {
     id,
-    type: "papaflow",
+    type: "hercules",
     position: { x: 0, y: 0 },
     data: { nodeType, key: id, label, inputs: {} },
   };

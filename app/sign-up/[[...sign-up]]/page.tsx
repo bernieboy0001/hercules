@@ -4,9 +4,9 @@ import { AuthShell } from "@/components/marketing/AuthShell";
 import { SignUpCard } from "@/components/marketing/ClerkCards";
 
 export const metadata: Metadata = {
-  title: "Create an account — PapaFlow",
+  title: "Create an account — HERCULES",
   description:
-    "Create a PapaFlow workspace: three workflows and a hundred runs a month, free.",
+    "Create a HERCULES workspace: three workflows and a hundred runs a month, free.",
 };
 
 export default function SignUpPage() {

@@ -1,4 +1,4 @@
-# PapaFlow
+# HERCULES
 
 n8n-style workflow automation SaaS. Users (as Clerk organisations) bring their own AI keys, connect chat apps, and build workflows either on a React Flow canvas or by describing them to a Pro-only Builder agent. Every run is durable on Vercel Workflows. Working title.
 

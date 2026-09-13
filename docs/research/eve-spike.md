@@ -87,7 +87,7 @@ below used), but the plan's "spike the order" worry is resolved: neither order b
 
 **Correction — `.mts` is NOT required.** The plan says "`next.config.mts` required (eve/next is
 ESM-only)". Tested the exact repo shape (package.json with **no** `"type": "module"`, matching
-`/Users/sonnysangha/Documents/Builds/n8n-clone-demo/package.json`) and `next.config.ts` with `withEve`
+`~/Documents/Builds/n8n-clone-demo/package.json`) and `next.config.ts` with `withEve`
 built cleanly under Next 16.3.4. Keep `.mts` — the repo already uses it and it works — but drop
 "required" from the claim; it is a preference, not a constraint.
 
@@ -206,8 +206,8 @@ export default eveChannel({
     // Engine callers (Agent node step): HS256 token minted with ENGINE_SECRET.
     jwtHmac({
       algorithm: "HS256",
-      issuer: "papaflow-engine",
-      audiences: ["papaflow-runtime"],
+      issuer: "hercules-engine",
+      audiences: ["hercules-runtime"],
       secret: process.env.ENGINE_SECRET!,
     }),
     localDev(),   // final fallback; inert outside `eve dev` / `vercel dev`
@@ -236,7 +236,7 @@ That is not necessary and Clerk has no clean server-side "mint a session token f
 `jwtHmac()` verifies an HS256 bearer and **projects every non-standard string claim into
 `attributes`** (`aud/exp/iat/iss/jti/nbf/sub` are stripped;
 `node_modules/eve/dist/src/channel/auth/token-claims.js`, `createJwtAttributeProjection`). Proven:
-a step-minted token with `{ iss: "papaflow-engine", aud: "papaflow-runtime", sub: org, orgId, plan,
+a step-minted token with `{ iss: "hercules-engine", aud: "hercules-runtime", sub: org, orgId, plan,
 executionId }` produced
 
 ```
@@ -253,7 +253,7 @@ ENGINE PROBE: spikeprobe/jwt-hmac-service-org=org_abc-plan=pro-exec=exec_123
 Two consequences to keep in mind:
 - `jwtHmac()` sets `principalType: "service"` and `principalId: "${iss}:${sub}"`. `@vercel/connect`'s
   user-scoped `connect("x/y")` OAuth requires `principalType === "user"` and would fail with
-  `reason: "principal_required"` from an engine session. Irrelevant for PapaFlow (we decrypt our own
+  `reason: "principal_required"` from an engine session. Irrelevant for HERCULES (we decrypt our own
   connections inside the tool), but it rules out Vercel Connect for the Agent node.
 - `vercelOidc()` would also work Vercel-to-Vercel with zero config, but it carries no `orgId`, so it
   cannot drive the per-session tool set. Use `jwtHmac()`.
@@ -619,7 +619,7 @@ what `MessageResult.inputRequests` and the raw `input.requested` event carry —
 ## Phase 10 implementation addendum (2026-09-03, measured in the repo)
 
 Four things the spike could not see, found while landing the Runtime agent. All executed against
-`eve@0.49.0` in `/Users/sonnysangha/Documents/Builds/n8n-clone-demo`.
+`eve@0.49.0` in `~/Documents/Builds/n8n-clone-demo`.
 
 ### 1. Under `pnpm dev`, an unauthenticated session is **202**, not 401
 
@@ -696,7 +696,7 @@ so the Runtime agent reaches Convex through `lib/connections-engine.ts` instead 
 ## Phase 12 addendum (2026-09-03, measured in the repo)
 
 Five things landing the Builder agent turned up. All executed against `eve@0.49.0` in
-`/Users/sonnysangha/Documents/Builds/n8n-clone-demo`; `npx eve info` from `agents/builder/` reports
+`~/Documents/Builds/n8n-clone-demo`; `npx eve info` from `agents/builder/` reports
 `Compile ready`, `0 errors`, 15 tools, `request_connection` as a `workflow-tool` and `remove_node`
 with `requiresApproval: true`.
 
@@ -746,7 +746,7 @@ nothing else (`guides/session-context.md`), and a value the model retypes into a
 value the model can get wrong.
 
 **What works instead:** send it as a request header and let the channel's `AuthFn` project it.
-`agents/builder/channels/eve.ts` reads `x-papaflow-workflow` off the `Request` and returns it in
+`agents/builder/channels/eve.ts` reads `x-hercules-workflow` off the `Request` and returns it in
 `attributes` alongside `orgId`/`userId`, so every tool reads
 `ctx.session.auth.current.attributes.workflowId` the same way it reads the org. It is not a
 capability — Convex re-checks the workflow against the org on every write — just an address.

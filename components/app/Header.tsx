@@ -113,7 +113,7 @@ export function Header() {
           </SheetTrigger>
           <SheetContent side="left" className="data-[side=left]:sm:max-w-xs">
             <SheetHeader>
-              <SheetTitle>PapaFlow</SheetTitle>
+              <SheetTitle>HERCULES</SheetTitle>
             </SheetHeader>
             <NavLinks
               pathname={pathname}
@@ -135,7 +135,7 @@ export function Header() {
           href="/w"
           className="shrink-0 rounded-md px-1 text-sm font-semibold tracking-tight text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
         >
-          PapaFlow
+          HERCULES
         </Link>
 
         <NavLinks pathname={pathname} className="hidden items-center gap-1 text-sm sm:flex" />

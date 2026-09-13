@@ -97,10 +97,10 @@ function isDirectMessage(chat: KnownChat): boolean {
 }
 
 /**
- * `DM · Sonny Sangha (@sonny)` for a person, the group's own title for everything else.
+ * `DM · Jordan Rivera (@jordan)` for a person, the group's own title for everything else.
  *
  * The `DM ·` prefix is the point: a Telegram chat id says nothing about who is on the other end,
- * and "Sonny" sitting between two group names reads like a third group. The `@username` is added
+ * and "Jordan" sitting between two group names reads like a third group. The `@username` is added
  * when there is one because two people can share a first name and nothing else in the list can tell
  * them apart. A chat stored before any of this had labels keeps its id, and stays selectable.
  */

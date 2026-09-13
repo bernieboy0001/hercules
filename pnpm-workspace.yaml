@@ -1,7 +1,9 @@
 allowBuilds:
+  '@mongodb-js/zstd': false
   '@swc/core': true
   cbor-extract: true
   esbuild: true
+  node-liblzma: false
   sharp: false
   unrs-resolver: false
 minimumReleaseAgeExclude:

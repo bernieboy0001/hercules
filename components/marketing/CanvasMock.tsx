@@ -145,7 +145,7 @@ export function CanvasMock() {
           ))}
         </div>
 
-        {/* The run ledger: the thing PapaFlow actually sells, written the way the product writes it. */}
+        {/* The run ledger: the thing HERCULES actually sells, written the way the product writes it. */}
         <div className="border-t border-border bg-muted/30">
           <p className="border-b border-border px-3 py-2 font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase sm:px-4">
 

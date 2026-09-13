@@ -243,7 +243,7 @@ describe("notion.createPage", () => {
       { key: "Done", value: "yes" },
       { key: "Score", value: "42" },
       { key: "Due date", value: "2026-03-11" },
-      { key: "Website", value: "https://papaflow.dev" },
+      { key: "Website", value: "https://hercules.dev" },
       { key: "Notes", value: "from the form" },
     ]);
     await done;
@@ -257,7 +257,7 @@ describe("notion.createPage", () => {
         Done: { checkbox: true },
         Score: { number: 42 },
         "Due date": { date: { start: "2026-03-11" } },
-        Website: { url: "https://papaflow.dev" },
+        Website: { url: "https://hercules.dev" },
         Notes: { rich_text: [{ text: { content: "from the form" } }] },
         Headline: { title: [{ text: { content: "New lead" } }] },
       },
@@ -302,7 +302,7 @@ describe("notion.createPage", () => {
 
     expect(error.status).toBe(400);
     expect(error.message).toBe(
-      "Owner is a relation; PapaFlow can only write text-like, select, status, checkbox, number, date, url, email and phone properties",
+      "Owner is a relation; HERCULES can only write text-like, select, status, checkbox, number, date, url, email and phone properties",
     );
     // Refused before the page is posted: only the schema read went out.
     expect(calls.map((call) => call.url)).toEqual([NOTION_SCHEMA]);
@@ -656,7 +656,7 @@ describe("github.createIssue", () => {
     expect(calls[0]).toMatchObject({ url: GITHUB_ISSUES, method: "POST" });
     expect(calls[0].headers.Authorization).toBe("Bearer github_pat_key");
     expect(calls[0].headers["X-GitHub-Api-Version"]).toBe("2026-03-10");
-    expect(calls[0].headers["User-Agent"]).toBe("papaflow/0.1");
+    expect(calls[0].headers["User-Agent"]).toBe("hercules/0.1");
     expect(bodyOf(calls[0])).toEqual({ title: "Broken link", body: "on /pricing", labels: ["bug"] });
   });
 
@@ -722,7 +722,7 @@ function teamsInputs(): unknown {
   return teamsPostCardNode.inputs.parse({
     connectionId: "conn_1",
     title: "Deploy finished",
-    text: "papaflow@abc123 is live",
+    text: "hercules@abc123 is live",
   });
 }
 
@@ -757,7 +757,7 @@ describe("teams.postCard", () => {
     expect(body.attachments[0].content.version).toBe("1.4");
     expect(body.attachments[0].content.body).toEqual([
       { type: "TextBlock", text: "Deploy finished", weight: "Bolder", size: "Medium", wrap: true },
-      { type: "TextBlock", text: "papaflow@abc123 is live", wrap: true },
+      { type: "TextBlock", text: "hercules@abc123 is live", wrap: true },
     ]);
   });
 

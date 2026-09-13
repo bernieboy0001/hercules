@@ -31,7 +31,7 @@ const setup = slack.setup;
 const name = slack.name;
 
 /** A deployed origin, which is the only kind Slack accepts. */
-const ORIGIN = "https://papaflow.vercel.app";
+const ORIGIN = "https://hercules.vercel.app";
 
 /** JSX escapes `"` and `'`; the manifest is nothing but quotes, so read the markup back decoded. */
 function decoded(html: string): string {
@@ -62,8 +62,8 @@ const open = render();
 
 describe("manifestJson", () => {
   it("formats a manifest the way Slack's paste box wants it", () => {
-    expect(manifestJson({ display_information: { name: "PapaFlow" } })).toBe(
-      '{\n  "display_information": {\n    "name": "PapaFlow"\n  }\n}',
+    expect(manifestJson({ display_information: { name: "HERCULES" } })).toBe(
+      '{\n  "display_information": {\n    "name": "HERCULES"\n  }\n}',
     );
   });
 
@@ -102,7 +102,7 @@ describe("ConnectorSetupSection", () => {
     expect(html).toContain(`${ORIGIN}${SLACK_EVENTS_PATH}`);
     expect(html).not.toContain(APP_ORIGIN_TOKEN);
     // And no leftover of the placeholder this replaced.
-    expect(html).not.toContain("papaflow.example.com");
+    expect(html).not.toContain("hercules.example.com");
     expect(html).not.toContain("CONNECTION_ID");
 
     // A different deployment gets its own, from the same declared manifest.

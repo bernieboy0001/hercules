@@ -41,8 +41,8 @@ Client: `new Client({ host: `${origin}/eve/agents/runtime`, auth: { bearer }, re
 
 ## NON-CONFIRMED FACTS (12 of 40)
 - [wrong] Local vendor skill at ~/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/eve/SKILL.md (brief).
-  TRUTH: vercel-plugin/0.30.0/skills/ has no eve folder (it has ai-gateway, ai-sdk, auth, workflow, ...). The only local eve skill is /Users/sonnysangha/.claude/plugins/cache/claude-plugins-official/vercel/0.45.1/skills/eve/{SKILL.md,overlay.yaml,upstream/SKILL.md}. It contains no API guidance (only 'read node_modules/eve/docs' and 'vercel agent-runs --help'); no drift vs live docs to report.
-  SRC: ls /Users/sonnysangha/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/; ls .../claude-plugins-official/vercel/0.45.1/skills/eve/
+  TRUTH: vercel-plugin/0.30.0/skills/ has no eve folder (it has ai-gateway, ai-sdk, auth, workflow, ...). The only local eve skill is ~/.claude/plugins/cache/claude-plugins-official/vercel/0.45.1/skills/eve/{SKILL.md,overlay.yaml,upstream/SKILL.md}. It contains no API guidance (only 'read node_modules/eve/docs' and 'vercel agent-runs --help'); no drift vs live docs to report.
+  SRC: ls ~/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/; ls .../claude-plugins-official/vercel/0.45.1/skills/eve/
 - [partially] Builder tools are static files under `agent/tools/` while the Builder lives in agents/builder/ (PLAN.md 71).
   TRUTH: Path is agents/builder/tools/*.ts (the folder named in `agents` IS the agent root). The static-file rule for durable tools still applies.
   SRC: https://api.github.com/repos/vercel/eve/contents/apps/frameworks/next-multi-agent/agents/support; https://raw.githubusercontent.com/vercel/eve/main/docs/tools/workflows.mdx
@@ -295,7 +295,7 @@ import { connect } from "@vercel/connect/eve";
 export default defineMcpClientConnection({
   url: "https://mcp.linear.app/mcp",
   description: "Linear workspace.",
-  auth: connect("linear/papaflow"), // or { getToken: async () => ({ token }) } / (ctx) => ({ principalType: "user", getToken })
+  auth: connect("linear/hercules"), // or { getToken: async () => ({ token }) } / (ctx) => ({ principalType: "user", getToken })
 });
 ```
 ### Skill files

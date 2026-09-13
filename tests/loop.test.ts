@@ -29,7 +29,7 @@ function ctx<I>(inputs: I): RunContext<I> {
 type StoredNode = { id: string; type: string; position: { x: number; y: number }; data: { nodeType: string } };
 
 function node(id: string, nodeType: string): StoredNode {
-  return { id, type: "papaflow", position: { x: 0, y: 0 }, data: { nodeType } };
+  return { id, type: "hercules", position: { x: 0, y: 0 }, data: { nodeType } };
 }
 
 function edge(source: string, target: string, sourceHandle?: string) {

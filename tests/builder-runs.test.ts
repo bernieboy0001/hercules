@@ -87,7 +87,7 @@ function node(
 ): unknown {
   return {
     id,
-    type: "papaflow",
+    type: "hercules",
     position: { x: 80, y: 160 },
     data: { nodeType, key, label: key, inputs: {}, ...extra },
   };

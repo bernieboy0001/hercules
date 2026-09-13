@@ -4,7 +4,7 @@ import { AuthShell } from "@/components/marketing/AuthShell";
 import { SelectOrgCard } from "@/components/marketing/ClerkCards";
 
 export const metadata: Metadata = {
-  title: "Choose a workspace — PapaFlow",
+  title: "Choose a workspace — HERCULES",
   description: "Pick the organisation whose workflows you want to open.",
 };
 

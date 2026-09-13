@@ -1,7 +1,7 @@
-# PapaFlow — AI-Native Workflow Automation SaaS with Clerk, Convex, Vercel Workflows & eve
+# HERCULES — AI-Native Workflow Automation SaaS with Clerk, Convex, Vercel Workflows & eve
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![Clerk](https://img.shields.io/badge/Clerk-Auth%20%2B%20Orgs%20%2B%20Billing-6c47ff?logo=clerk)](https://go.clerk.com/sonny)
+[![Clerk](https://img.shields.io/badge/Clerk-Auth%20%2B%20Orgs%20%2B%20Billing-6c47ff?logo=clerk)](https://clerk.com)
 [![Convex](https://img.shields.io/badge/Convex-Realtime%20DB%20%2B%20Scheduler-ee342f)](https://convex.dev/)
 [![Vercel Workflows](https://img.shields.io/badge/Vercel%20Workflows-durable%20runs-black?logo=vercel)](https://workflow-sdk.dev/v5/docs/)
 [![eve](https://img.shields.io/badge/eve-durable%20agents-black?logo=vercel)](https://eve.dev/docs)
@@ -10,26 +10,26 @@
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind%20CSS-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178c6?logo=typescript)](https://www.typescriptlang.org/)
 
-> **Disclaimer:** PapaFlow is a fictional educational project. The organisations,
+> **Disclaimer:** HERCULES is a fictional educational project. The organisations,
 > workflows, runs, connections and template data in the demo are synthetic.
 > Clerk, Convex, Vercel, Next.js, React, Tailwind CSS, n8n, Slack, Discord,
 > Telegram, Notion, Airtable, Linear, GitHub, Stripe, Resend, OpenAI, Anthropic,
 > Google and other third-party names are trademarks of their respective owners
 > and are used only to identify the technologies demonstrated here.
 
-PapaFlow is an **n8n-style workflow automation platform built as a multi-tenant
+HERCULES is an **n8n-style workflow automation platform built as a multi-tenant
 SaaS**: draw a workflow on a canvas (or describe it to an AI builder), wire up
 triggers, logic, AI nodes and 21 connectors, press Run and watch every node
 light up live — then publish it so webhooks, forms, schedules and chat messages
 start it for you. Every run is durable: it survives deploys, it can sleep for
 three days, and it can park itself until a human presses **Approve** in Slack.
 
-Organisations are [Clerk organizations](https://go.clerk.com/sonny). The plan
+Organisations are [Clerk organizations](https://clerk.com). The plan
 an org is on is a Clerk subscription. The AI keys an org uses are its own,
 encrypted before they touch the database and opened only inside the single
 step that makes the call.
 
-![The PapaFlow canvas — a workflow with a Manual trigger, an HTTP request and an LLM node that still needs a connection, with the last run's timeline underneath](docs/assets/canvas.png)
+![The HERCULES canvas — a workflow with a Manual trigger, an HTTP request and an LLM node that still needs a connection, with the last run's timeline underneath](docs/assets/canvas.png)
 
 > **Who is this for?**
 > Developers who want to see what it takes to build a *real* automation product
@@ -39,7 +39,7 @@ step that makes the call.
 > tenancy boundary is the same one Clerk already sells you.
 
 > **What makes it different?**
-> Most workflow-engine demos stop at "nodes execute in order". PapaFlow rebuilds
+> Most workflow-engine demos stop at "nodes execute in order". HERCULES rebuilds
 > the whole product: the graph runs as a **Vercel Workflow** (`runGraph`) whose
 > only step (`runNode`) is idempotent and retry-aware; secrets are **AES-256-GCM
 > ciphertext** bound to the org and row that own them; schedules use **Convex as
@@ -59,7 +59,7 @@ step that makes the call.
 
 ## 👇🏼 DO THIS Before You Get Started
 
-1️⃣ Sign up to Clerk 👉 **[https://go.clerk.com/sonny](https://go.clerk.com/sonny)**
+1️⃣ Sign up to Clerk 👉 **[https://clerk.com](https://clerk.com)**
 
 2️⃣ Sign up to Convex 👉 **[https://convex.dev](https://convex.dev/)**
 
@@ -69,7 +69,7 @@ step that makes the call.
 
 | Service | What it does in this build | Sign up |
 | --- | --- | --- |
-| **Clerk** | Authentication, **organizations** (every workspace is an org — solo users are an org of one), B2B **billing** with three org plans, the `pla`/`fea` session claims that gate every feature, and the org id that becomes the tenant key on every document | **[Create a free Clerk account →](https://go.clerk.com/sonny)** |
+| **Clerk** | Authentication, **organizations** (every workspace is an org — solo users are an org of one), B2B **billing** with three org plans, the `pla`/`fea` session claims that gate every feature, and the org id that becomes the tenant key on every document | **[Create a free Clerk account →](https://clerk.com)** |
 | **Convex** | All application state (workflows, runs, steps, sealed credentials, schedules, usage) with realtime subscriptions that drive the canvas — and the **scheduler** that fires published schedules | [Create a free Convex account →](https://convex.dev/) |
 | **Vercel** | Hosting (Fluid compute), **Vercel Workflows** for durable runs, the two **eve** agent services, and the AI Gateway that pays for the Builder's house model | [Create a free Vercel account →](https://vercel.com/) |
 | **Your AI provider** | OpenAI, Anthropic, Google, Groq, xAI, Mistral, DeepSeek or OpenRouter — you paste a key as a *connection* inside the app; nothing here marks up your tokens | [OpenAI](https://platform.openai.com/) · [Anthropic](https://console.anthropic.com/) · [Google](https://aistudio.google.com/) · [Groq](https://console.groq.com/) |
@@ -84,7 +84,7 @@ step that makes the call.
 
 ## 🤔 What Is This App?
 
-PapaFlow is three products fused together: a visual automation editor, a durable
+HERCULES is three products fused together: a visual automation editor, a durable
 execution engine with a run inspector, and an AI layer that can both *act inside*
 a workflow (the AI Agent node) and *build* workflows for you (the Builder).
 
@@ -718,7 +718,7 @@ every tool re-checks the org's plan inside `execute`. The one durable tool:
 // agents/builder/tools/request_connection.ts
 async execute({ provider, reason }, ctx) {
   "use workflow";
-  const pending = ask(ctx, { prompt: `PapaFlow needs a ${providerName} connection. ${reason}`, display: "confirmation", allowFreeform: true, options: [...] });
+  const pending = ask(ctx, { prompt: `HERCULES needs a ${providerName} connection. ${reason}`, display: "confirmation", allowFreeform: true, options: [...] });
   // A day is long enough for "I'll get the token from my admin".
   const answer = await Promise.race([pending, sleep("24h")]);
   if (answer === undefined) return { connected: false, reason: "The request timed out after 24 hours." };
@@ -846,7 +846,7 @@ flowchart LR
 
 - **Node.js 24** (`"engines": { "node": "24.x" }` — eve is Node ≥ 24, ESM-only)
 - **pnpm** (`pnpm@11.24.0` is pinned via `packageManager`)
-- A **[Clerk account](https://go.clerk.com/sonny)**, a
+- A **[Clerk account](https://clerk.com)**, a
   [Convex account](https://convex.dev/) and a [Vercel account](https://vercel.com/)
 - The Clerk CLI (`pnpm add -g clerk`, then `clerk auth login`) and the Vercel CLI
   (`pnpm add -g vercel`, then `vercel login`)
@@ -855,8 +855,8 @@ flowchart LR
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/sonnysangha/papaflow-ai-automation-saas.git
-cd papaflow-ai-automation-saas
+git clone https://github.com/<your-org>/hercules-ai-automation-saas.git
+cd hercules-ai-automation-saas
 pnpm install
 cp .env.example .env.local
 ```
@@ -870,7 +870,7 @@ be bumped mid-phase.
 ### 2. Create the Clerk app
 
 ```bash
-clerk apps create "PapaFlow" --json        # note the application_id
+clerk apps create "HERCULES" --json        # note the application_id
 clerk link --app <application_id>
 clerk enable orgs --max-members 5 --yes    # every workspace is an organization
 clerk env pull --file .env.local           # NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY + CLERK_SECRET_KEY
@@ -896,7 +896,7 @@ running in its own terminal — it pushes `convex/` on every save.
 ### 4. Connect Clerk to Convex (one dashboard step)
 
 Clerk Dashboard → **[Convex integration](https://dashboard.clerk.com/apps/setup/convex)**
-→ PapaFlow (Development) → **Activate Convex integration**. Copy the Frontend API
+→ HERCULES (Development) → **Activate Convex integration**. Copy the Frontend API
 URL it shows, then:
 
 ```bash
@@ -952,7 +952,7 @@ organisation, and you land on the workflow list.
 ### 8. Add a connection, build a workflow, run it
 
 1. **Connections → Add connection** — paste an OpenAI, Anthropic, Google or Groq
-   key. PapaFlow calls the provider's list-models endpoint, seals the key and
+   key. HERCULES calls the provider's list-models endpoint, seals the key and
    fills the model picker.
 2. **Workflows → New workflow → From template** — pick *Loop over a list* (needs
    nothing) or *Lead intake triage* (needs your AI key), or start blank and drag
@@ -1028,7 +1028,7 @@ secrets — is a per-org **connection** added inside the app, never an env var.
 
 ### First-Time Setup Checklist
 
-- [ ] **[Clerk account](https://go.clerk.com/sonny)**, Convex account and Vercel account created
+- [ ] **[Clerk account](https://clerk.com)**, Convex account and Vercel account created
 - [ ] `clerk apps create` → `clerk link` → `clerk enable orgs` → `clerk env pull`
 - [ ] `pnpm convex:dev` has written `CONVEX_DEPLOYMENT` and `NEXT_PUBLIC_CONVEX_URL`
 - [ ] Clerk → Convex integration activated; `CLERK_FRONTEND_API_URL` set on Convex
@@ -1195,14 +1195,14 @@ Every one of these was hit for real while building this:
 
 ## 📜 License, Security, and Notices
 
-This repository is for educational and reference purposes. PapaFlow is a
+This repository is for educational and reference purposes. HERCULES is a
 fictional product; every organisation, workflow, run and connection in the demo
 is synthetic. Do not commit `.env.local`, Clerk keys, Convex deploy keys, the
 `ENGINE_SECRET`, the `CREDENTIALS_KEK`, or any provider key. Billing runs on
 Clerk's development checkout — no money moves.
 
 Signup links in this README use the project owner's campaign URL for Clerk:
-**[Clerk →](https://go.clerk.com/sonny)** ·
+**[Clerk →](https://clerk.com)** ·
 **[Join the AI Community →](https://www.papareact.com/ztoh-form)**
 
 ---

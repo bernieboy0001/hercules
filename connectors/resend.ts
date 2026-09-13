@@ -1,4 +1,4 @@
-// The one connector for a service PapaFlow already uses itself. An org that brings its own Resend
+// The one connector for a service HERCULES already uses itself. An org that brings its own Resend
 // key sends from its own verified domain instead of the platform's sandbox sender, so `email.send`
 // stops being "onboarding@resend.dev to your own address only".
 //
@@ -11,7 +11,7 @@ import { defineConnector } from "./define";
 export const RESEND_API = "https://api.resend.com";
 
 /** Resend blocks requests with no User-Agent. Exported so the node sends the same one. */
-export const RESEND_USER_AGENT = "papaflow/0.1";
+export const RESEND_USER_AGENT = "hercules/0.1";
 
 /**
  * What a Resend account with no verified domain can still do, in the one sentence the connection

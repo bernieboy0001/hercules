@@ -70,7 +70,7 @@ export async function pickOptions(
 
   const connector = CONNECTORS[connection.provider];
   if (!connector) {
-    throw new Error(`PapaFlow has no connector called "${connection.provider}".`);
+    throw new Error(`HERCULES has no connector called "${connection.provider}".`);
   }
 
   if (!connector.pick && args.kind !== MODELS_PICKER) {

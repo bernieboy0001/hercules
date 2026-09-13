@@ -57,7 +57,7 @@ type TelegramUpdate = { message?: TelegramMessage; callback_query?: TelegramCall
  * A group, supergroup or channel arrives with a `title`; a *private* chat — a DM with one person —
  * arrives with `first_name` and optionally `last_name` and `username` instead
  * (core.telegram.org/bots/api). All four are kept because `connectors/telegram.ts#chatLabel` builds
- * "DM · Sonny Sangha (@sonny)" out of them, and `type` is what says it is a DM at all.
+ * "DM · Jordan Rivera (@jordan)" out of them, and `type` is what says it is a DM at all.
  */
 type KnownChat = {
   id: string;

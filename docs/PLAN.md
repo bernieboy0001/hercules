@@ -1,4 +1,4 @@
-# PapaFlow Build Plan
+# HERCULES Build Plan
 
 > Teams bring their own AI keys, connect chat apps, and either draw a workflow on the canvas or describe it in one box and let a Builder agent draw it for them. Every run is durable, every credential is encrypted, and Clerk Billing turns it into a B2B SaaS with plan-gated features. Working title is a placeholder.
 
@@ -230,7 +230,7 @@ One `connections` table in Convex, secrets encrypted with AES-256-GCM before the
 | `createdBy` | Clerk user id of whoever connected it. |
 | `provider` | `"openai" | "anthropic" | … | "slack" | "discord" | "telegram" | "notion" | "airtable" | "linear" | "stripe"` |
 | `kind` | `"apiKey" | "oauth2" | "webhookUrl" | "botToken"`, decides the refresh path and the "test connection" call |
-| `label` | What the user sees: "OpenAI (personal)", "#leads in PAPAFAM", "@papaflow_bot". Never a secret. |
+| `label` | What the user sees: "OpenAI (personal)", "#leads in PAPAFAM", "@hercules_bot". Never a secret. |
 | `secret` | `{ v: 1, keyId, iv, tag, ct }` base64. The whole token blob encrypted as one JSON string. |
 | `hint` | Last four characters, for the masked list: `••••4f2a` |
 | `expiresAt` | Unix ms, null for non-expiring. Read without decrypting to decide whether to refresh. |
@@ -434,7 +434,7 @@ Ordered so something runs durably inside the first 25 minutes and each chapter a
 
 Built by the Builder from one sentence, then triggered by one form submission. It touches five connectors and pauses for a human, and every step produces something you can cut to on screen.
 
-- Form: "Work with Sonny" → Extract (name, company, budget, timeline) → Classify (hot / warm / cold) → Switch
+- Form: "Work with Jordan" → Extract (name, company, budget, timeline) → Classify (hot / warm / cold) → Switch
   - **hot**: Approval in Slack (run sleeps) → Agent: research the company, draft a reply → Send email → Notion: create page → Telegram: "booked 🔥"
   - **warm**: Send email: case studies → Wait 3 days → Send email: follow-up
   - **cold**: Notion: create page → Discord: log

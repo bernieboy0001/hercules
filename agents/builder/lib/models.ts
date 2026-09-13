@@ -13,7 +13,7 @@
 export type ProviderPreference = { provider: string; prefer: readonly string[] };
 
 /**
- * Providers in "most capable first" order. Planning a graph is the hardest thing PapaFlow asks of
+ * Providers in "most capable first" order. Planning a graph is the hardest thing HERCULES asks of
  * a model — it holds a node catalogue, a half-built graph and a template language at once — so
  * this is not the cheapest-first order the house model is chosen by.
  */

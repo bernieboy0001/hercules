@@ -45,7 +45,7 @@ import {
  * itself so that module stays a plain, DOM-free function library.
  */
 
-const STORAGE_PREFIX = "papaflow:form-run:";
+const STORAGE_PREFIX = "hercules:form-run:";
 
 function storageKey(workflowId: string): string {
   return `${STORAGE_PREFIX}${workflowId}`;

@@ -57,12 +57,12 @@ describe("mergeAnswers", () => {
   });
 
   it("prefers a remembered answer over the sample", () => {
-    const merged = mergeAnswers(CONTACT, { email: "ada@papaflow.dev" });
-    expect(merged.email).toBe("ada@papaflow.dev");
+    const merged = mergeAnswers(CONTACT, { email: "ada@hercules.dev" });
+    expect(merged.email).toBe("ada@hercules.dev");
   });
 
   it("samples a field the remembered set never had", () => {
-    const merged = mergeAnswers(CONTACT, { email: "ada@papaflow.dev" });
+    const merged = mergeAnswers(CONTACT, { email: "ada@hercules.dev" });
     expect(merged.seats).toBe(sampleValueFor(CONTACT.fields.find((f) => f.name === "seats")!));
   });
 
@@ -91,7 +91,7 @@ describe("missingRequiredFields", () => {
 describe("answersToPayload", () => {
   it("matches the shape the forms route builds from a submission", () => {
     const answers: FormAnswers = {
-      email: "ada@papaflow.dev",
+      email: "ada@hercules.dev",
       company: "Analytical Engines",
       seats: "12",
       plan: "Pro",
@@ -102,7 +102,7 @@ describe("answersToPayload", () => {
     // `values` rather than sent as `""`.
     expect(answersToPayload(CONTACT, answers, 1_700_000_000_000)).toEqual({
       values: {
-        email: "ada@papaflow.dev",
+        email: "ada@hercules.dev",
         company: "Analytical Engines",
         seats: 12,
         plan: "Pro",

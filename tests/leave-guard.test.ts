@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { isInternalHref, shouldGuardClick, type LinkClick } from "@/components/canvas/use-leave-guard";
 
 /** The page the editor is on for every case below. */
-const HERE = "https://papaflow.test/w/abc123";
+const HERE = "https://hercules.test/w/abc123";
 
 /** A plain left click on `href`, which is the only kind that ever gets intercepted. */
 function click(href: string | null | undefined, overrides: Partial<LinkClick> = {}): LinkClick {
@@ -23,7 +23,7 @@ describe("isInternalHref", () => {
     expect(isInternalHref("/w", HERE)).toBe(true);
     expect(isInternalHref("/w/abc123/runs", HERE)).toBe(true);
     expect(isInternalHref("runs", HERE)).toBe(true);
-    expect(isInternalHref("https://papaflow.test/connections", HERE)).toBe(true);
+    expect(isInternalHref("https://hercules.test/connections", HERE)).toBe(true);
     // Same page, different place on it. Internal — `shouldGuardClick` is what decides it is not a
     // navigation worth stopping.
     expect(isInternalHref("#nodes", HERE)).toBe(true);
@@ -32,10 +32,10 @@ describe("isInternalHref", () => {
   it("rejects anywhere this app cannot save first", () => {
     expect(isInternalHref("https://slack.com/oauth", HERE)).toBe(false);
     expect(isInternalHref("//evil.test/w", HERE)).toBe(false);
-    expect(isInternalHref("mailto:sonny@papaflow.test", HERE)).toBe(false);
+    expect(isInternalHref("mailto:owner@hercules.test", HERE)).toBe(false);
     expect(isInternalHref("tel:+441234567890", HERE)).toBe(false);
     expect(isInternalHref("javascript:void(0)", HERE)).toBe(false);
-    expect(isInternalHref("blob:https://papaflow.test/9f2", HERE)).toBe(false);
+    expect(isInternalHref("blob:https://hercules.test/9f2", HERE)).toBe(false);
   });
 
   it("rejects a missing or unparseable href", () => {
@@ -71,7 +71,7 @@ describe("shouldGuardClick", () => {
 
   it("leaves external links to the browser's own prompt", () => {
     expect(shouldGuardClick(click("https://clerk.com/billing"), HERE)).toBe(false);
-    expect(shouldGuardClick(click("mailto:sonny@papaflow.test"), HERE)).toBe(false);
+    expect(shouldGuardClick(click("mailto:owner@hercules.test"), HERE)).toBe(false);
   });
 
   it("leaves links to the page we are already on", () => {

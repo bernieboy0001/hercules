@@ -3,7 +3,7 @@ import { z } from "zod";
 import { defineNode } from "../define";
 
 /**
- * The hosted form trigger: PapaFlow renders a public page at `/f/<workflowId>` from the field list
+ * The hosted form trigger: HERCULES renders a public page at `/f/<workflowId>` from the field list
  * configured here, and a submission starts the run.
  *
  * The whole contract is this node's `inputs`. `app/f/[workflowId]/page.tsx` reads them back through
@@ -21,7 +21,7 @@ export const formTriggerNode = defineNode({
   description: "Starts the workflow when someone submits your hosted form.",
   guide: {
     summary:
-      "PapaFlow hosts this form for you — the link is just below. Share it, and each submission starts a run. Publish the workflow first: a draft form still renders, but its submissions go nowhere yet.",
+      "HERCULES hosts this form for you — the link is just below. Share it, and each submission starts a run. Publish the workflow first: a draft form still renders, but its submissions go nowhere yet.",
   },
   category: "trigger",
   icon: "ClipboardList",

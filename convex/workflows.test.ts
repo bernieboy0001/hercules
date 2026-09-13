@@ -59,7 +59,7 @@ describe("api.workflows", () => {
       nodes: [
         {
           id: "start",
-          type: "papaflow",
+          type: "hercules",
           position: { x: 0, y: 0 },
           data: { nodeType: "manual.trigger", key: "start", label: "Run it", inputs: {} },
         },
@@ -119,7 +119,7 @@ describe("api.workflows", () => {
         nodes: [
           {
             id: "start",
-            type: "papaflow",
+            type: "hercules",
             position: { x: 0, y: 0 },
             data: { nodeType: "form.trigger", key: "start", label: "Form", inputs: {} },
           },
@@ -137,13 +137,13 @@ describe("api.workflows", () => {
         nodes: [
           {
             id: "note",
-            type: "papaflow",
+            type: "hercules",
             position: { x: 0, y: 0 },
             data: { nodeType: "set", key: "note", label: "Set", inputs: {} },
           },
           {
             id: "msg",
-            type: "papaflow",
+            type: "hercules",
             position: { x: 0, y: 0 },
             data: { nodeType: "telegram.message", key: "msg", label: "Message", inputs: {} },
           },
@@ -269,7 +269,7 @@ describe("api.workflows", () => {
     const before = await orgA.query(api.workflows.get, { id });
 
     const graph = {
-      nodes: [{ id: "n1", type: "papaflow", position: { x: 0, y: 0 }, data: { nodeType: "manual.trigger" } }],
+      nodes: [{ id: "n1", type: "hercules", position: { x: 0, y: 0 }, data: { nodeType: "manual.trigger" } }],
       edges: [],
       viewport: { x: 0, y: 0, zoom: 1 },
       triggerId: "n1",

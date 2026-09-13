@@ -61,7 +61,7 @@ export function SiteFooter() {
       <div className="mx-auto w-full max-w-6xl px-5 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:px-8">
 
         <p className="border-t border-border pt-6 font-mono text-xs text-muted-foreground">
-          © {new Date().getFullYear()} PapaFlow
+          © {new Date().getFullYear()} HERCULES
         </p>
       </div>
     </footer>

@@ -22,7 +22,7 @@ import { NewWorkflowDialog } from "./NewWorkflowDialog";
  * this reader and not about the organisation.
  */
 
-const DISMISS_KEY = "papaflow:getting-started-dismissed";
+const DISMISS_KEY = "hercules:getting-started-dismissed";
 
 /**
  * "Has this reader hidden the panel" as an external store, because that is what `localStorage` is:

@@ -40,11 +40,11 @@ const USERS_PAGE_2 = `${USERS}&cursor=people2`;
 const USERS_BODY = {
   ok: true,
   members: [
-    { id: "U1", name: "sonny", real_name: "Sonny Sangha" },
+    { id: "U1", name: "jordan", real_name: "Jordan Rivera" },
     { id: "U2", name: "ada", profile: { real_name: "Ada Lovelace" } },
     // Same handle as name: no redundant `(@…)` suffix.
     { id: "U3", name: "grace" },
-    { id: "UBOT", name: "papaflow", is_bot: true },
+    { id: "UBOT", name: "hercules", is_bot: true },
     { id: "UGONE", name: "ghost", real_name: "Left Long Ago", deleted: true },
     { id: "USLACKBOT", name: "slackbot", real_name: "Slackbot" },
   ],
@@ -53,7 +53,7 @@ const USERS_BODY = {
 
 /** What `USERS_BODY` should survive as. */
 const SLACK_PEOPLE = [
-  { id: "U1", label: "DM · Sonny Sangha (@sonny)" },
+  { id: "U1", label: "DM · Jordan Rivera (@jordan)" },
   { id: "U2", label: "DM · Ada Lovelace (@ada)" },
   { id: "U3", label: "DM · grace" },
 ];
@@ -251,7 +251,7 @@ describe("slack connector", () => {
       [USERS]: {
         body: {
           ok: true,
-          members: [{ id: "U1", name: "sonny", real_name: "Sonny Sangha" }],
+          members: [{ id: "U1", name: "jordan", real_name: "Jordan Rivera" }],
           response_metadata: { next_cursor: "people2" },
         },
       },
@@ -265,7 +265,7 @@ describe("slack connector", () => {
     });
 
     await expect(slackConnector.pick?.("channels", { botToken: SLACK_TOKEN }, {})).resolves.toEqual([
-      { id: "U1", label: "DM · Sonny Sangha (@sonny)" },
+      { id: "U1", label: "DM · Jordan Rivera (@jordan)" },
       { id: "U9", label: "DM · Late Joiner (@late)" },
     ]);
     expect(calls.map((call) => call.url)).toEqual([CHANNELS, USERS, USERS_PAGE_2]);
@@ -339,7 +339,7 @@ describe("discord webhook connector", () => {
       [WEBHOOK_URL]: {
         body: {
           id: WEBHOOK_ID,
-          name: "papaflow",
+          name: "hercules",
           channel_id: "C900",
           guild_id: "G100",
           type: 1,
@@ -356,12 +356,12 @@ describe("discord webhook connector", () => {
 
     expect(calls).toHaveLength(1);
     expect(calls[0]).toMatchObject({ url: WEBHOOK_URL, method: "GET" });
-    expect(result.label).toBe("#papaflow");
+    expect(result.label).toBe("#hercules");
     expect(result.hint).toBe(WEBHOOK_TOKEN.slice(-4));
     expect(result.meta).toEqual({
       channel_id: "C900",
       guild_id: "G100",
-      name: "papaflow",
+      name: "hercules",
       webhook_id: WEBHOOK_ID,
     });
   });
@@ -411,18 +411,18 @@ describe("discord bot connector", () => {
   });
 
   it("identifies the bot with a Bot token and builds the invite URL", async () => {
-    const calls = stubFetch({ [USERS_ME]: { body: { id: "B77", username: "papaflow" } } });
+    const calls = stubFetch({ [USERS_ME]: { body: { id: "B77", username: "hercules" } } });
 
     const result = expectOk(await discordBotConnector.test(SECRET));
 
     expect(calls).toHaveLength(1);
     expect(calls[0]).toMatchObject({ url: USERS_ME, method: "GET" });
     expect(calls[0].headers.Authorization).toBe(`Bot ${BOT_TOKEN}`);
-    expect(result.label).toBe("papaflow");
+    expect(result.label).toBe("hercules");
     expect(result.hint).toBe(BOT_TOKEN.slice(-4));
     expect(result.meta).toEqual({
       bot_id: "B77",
-      bot_username: "papaflow",
+      bot_username: "hercules",
       applicationId: APP_ID,
       publicKey: "abc123",
       inviteUrl: `https://discord.com/oauth2/authorize?client_id=${APP_ID}&scope=bot%20applications.commands&permissions=3072`,
@@ -516,19 +516,19 @@ describe("discord bot connector", () => {
       [OTHER_GUILD_CHANNELS]: { body: [] },
       [GUILD_MEMBERS]: {
         body: [
-          { nick: "Sonny", user: { id: "U1", username: "sonny", global_name: "Sonny Sangha" } },
+          { nick: "Jordan", user: { id: "U1", username: "jordan", global_name: "Jordan Rivera" } },
           { user: { id: "U2", username: "ada", global_name: "Ada Lovelace" } },
           { user: { id: "U3", username: "grace" } },
           { user: { id: "UBOT", username: "some-bot", bot: true } },
         ],
       },
       // The same person again, in the bot's other server: one option, not two.
-      [OTHER_GUILD_MEMBERS]: { body: [{ user: { id: "U1", username: "sonny" } }] },
+      [OTHER_GUILD_MEMBERS]: { body: [{ user: { id: "U1", username: "jordan" } }] },
     });
 
     await expect(discordBotConnector.pick?.("targets", SECRET, {})).resolves.toEqual([
       { id: "C1", label: "#general · PapaFam" },
-      { id: "user:U1", label: "DM · Sonny (@sonny)" },
+      { id: "user:U1", label: "DM · Jordan (@jordan)" },
       { id: "user:U2", label: "DM · Ada Lovelace (@ada)" },
       { id: "user:U3", label: "DM · grace" },
     ]);
@@ -594,13 +594,13 @@ describe("telegram pick, alongside the other chat connectors", () => {
       chat_ids: [
         { id: 42, title: "Ops room", type: "supergroup" },
         // Learned before the route recorded a `type`: named the way only a private chat is.
-        { id: 7, first_name: "Sonny" },
+        { id: 7, first_name: "Jordan" },
         { id: 9 },
       ],
     };
 
     await expect(telegramConnector.pick?.("chats", { botToken: "x" }, meta)).resolves.toEqual([
-      { id: "7", label: "DM · Sonny" },
+      { id: "7", label: "DM · Jordan" },
       { id: "42", label: "Ops room" },
       { id: "9", label: "9" },
     ]);
@@ -617,7 +617,7 @@ describe("telegram pick, alongside the other chat connectors", () => {
     const meta = {
       chat_ids: [
         { id: -1001234567890, title: "PapaFam", type: "supergroup" },
-        { id: 111, type: "private", first_name: "Sonny", last_name: "Sangha", username: "sonny" },
+        { id: 111, type: "private", first_name: "Jordan", last_name: "Rivera", username: "jordan" },
         { id: 222, type: "private", first_name: "Ada" },
         { id: 333, type: "private", username: "grace" },
         { id: -100999, title: "Announcements", type: "channel" },
@@ -626,7 +626,7 @@ describe("telegram pick, alongside the other chat connectors", () => {
 
     for (const kind of ["chats", "targets"]) {
       await expect(telegramConnector.pick?.(kind, { botToken: "x" }, meta)).resolves.toEqual([
-        { id: "111", label: "DM · Sonny Sangha (@sonny)" },
+        { id: "111", label: "DM · Jordan Rivera (@jordan)" },
         { id: "222", label: "DM · Ada" },
         { id: "333", label: "DM · @grace" },
         { id: "-1001234567890", label: "PapaFam" },
@@ -709,9 +709,9 @@ describe("slack app manifest", () => {
     // Substituted, it is the `https` URL Slack demands — and nothing but the origin changed.
     const substituted = substituteAppOrigin(
       interactivity.request_url,
-      "https://papaflow.vercel.app",
+      "https://hercules.vercel.app",
     );
-    expect(substituted).toBe("https://papaflow.vercel.app/api/events/slack");
+    expect(substituted).toBe("https://hercules.vercel.app/api/events/slack");
     expect(new URL(substituted).protocol).toBe("https:");
   });
 
@@ -720,8 +720,8 @@ describe("slack app manifest", () => {
   });
 
   it("names the app and derives a bot display name Slack will accept", () => {
-    expect(manifest().display_information.name).toBe("PapaFlow");
-    expect(manifest().features.bot_user.display_name).toBe("PapaFlow");
+    expect(manifest().display_information.name).toBe("HERCULES");
+    expect(manifest().features.bot_user.display_name).toBe("HERCULES");
 
     // `display_name` allows only letters, digits, `-`, `_` and `.`; a name with spaces is common.
     const custom = slackAppManifest("Acme Ops Bot") as unknown as Manifest;
@@ -734,7 +734,7 @@ describe("slack app manifest", () => {
     expect(long.display_information.description?.length).toBeLessThanOrEqual(140);
 
     // A blank name is a mistake, not a request for a nameless app.
-    expect((slackAppManifest("   ") as unknown as Manifest).display_information.name).toBe("PapaFlow");
+    expect((slackAppManifest("   ") as unknown as Manifest).display_information.name).toBe("HERCULES");
   });
 
   it("is plain JSON, and a fresh object every call", () => {
@@ -742,7 +742,7 @@ describe("slack app manifest", () => {
     expect(JSON.parse(JSON.stringify(first))).toEqual(first);
 
     (first.display_information as { name: string }).name = "tampered";
-    expect(manifest().display_information.name).toBe("PapaFlow");
+    expect(manifest().display_information.name).toBe("HERCULES");
   });
 
   it("reaches the UI through the connector's own setup block", () => {

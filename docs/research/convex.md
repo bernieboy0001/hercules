@@ -3,7 +3,7 @@
 ## SUMMARY
 Versions (npm, 2026-09-02): convex@1.45.0 (node>=20; published 2026-08-21), svix@2.2.0 (engines node>=22), convex-test@0.0.56 (peer convex ^1.43), @edge-runtime/vm@5.0.0, convex-helpers@0.1.123. ~/.convex/config.json holds {accessToken}, so the CLI is logged in.
 
-Provisioning (corrected): the team slug IS discoverable from the CLI: `npx convex login status` prints "Teams: N teams accessible" then "  - <name> (<slug>)" (login.ts). Then `npx convex dev --once --configure new --team <slug> --project papaflow --dev-deployment cloud`. `dev` has no --yes. Headless caveat verified in source: when stdin is not a TTY the base selection is "anonymous" even if logged in, but `--configure new` (chosenConfiguration !== null) routes to handleChooseProject -> ensureLoggedIn -> cloud project creation, so the command above is safe; a plain `npx convex dev --once` with no .env.local in a non-TTY shell silently creates a LOCAL anonymous deployment (guard with CONVEX_ALLOW_ANONYMOUS=false). Newer alternatives exist: `npx convex project create <name> --team <slug>` and `npx convex deployment create [ref] --type dev|prod --select`. dev writes .env.local (CONVEX_DEPLOYMENT=dev:<name>, NEXT_PUBLIC_CONVEX_URL for Next.js) and convex/README.md + tsconfig.json (skipped if present); zero modules only logs "No non-'use node' modules found." - write schema.ts first anyway.
+Provisioning (corrected): the team slug IS discoverable from the CLI: `npx convex login status` prints "Teams: N teams accessible" then "  - <name> (<slug>)" (login.ts). Then `npx convex dev --once --configure new --team <slug> --project hercules --dev-deployment cloud`. `dev` has no --yes. Headless caveat verified in source: when stdin is not a TTY the base selection is "anonymous" even if logged in, but `--configure new` (chosenConfiguration !== null) routes to handleChooseProject -> ensureLoggedIn -> cloud project creation, so the command above is safe; a plain `npx convex dev --once` with no .env.local in a non-TTY shell silently creates a LOCAL anonymous deployment (guard with CONVEX_ALLOW_ANONYMOUS=false). Newer alternatives exist: `npx convex project create <name> --team <slug>` and `npx convex deployment create [ref] --type dev|prod --select`. dev writes .env.local (CONVEX_DEPLOYMENT=dev:<name>, NEXT_PUBLIC_CONVEX_URL for Next.js) and convex/README.md + tsconfig.json (skipped if present); zero modules only logs "No non-'use node' modules found." - write schema.ts first anyway.
 
 Clerk: auth.config.ts uses process.env (Convex doc: CLERK_JWT_ISSUER_DOMAIN; Clerk doc: CLERK_FRONTEND_API_URL) with applicationID "convex"; set via `npx convex env set`. ConvexProviderWithClerk from "convex/react-clerk" ({client,useAuth}); getToken() without template when sessionClaims.aud==="convex"; re-fetches on [orgId, orgRole, sessionId]. Clerk v2 tokens carry `o` {id,slg,rol,per,fpm}, `pla` ("scope:planslug"), `fea`; legacy org_id/org_role are gone. Convex OIDC path stringifies each non-standard top-level claim; whether the runtime re-parses nested objects could not be located - add top-level org_id/org_role claims and log identity once.
 
@@ -26,11 +26,11 @@ Testing: vitest environment "edge-runtime"; convexTest(schema, import.meta.glob(
 
 ## COMMANDS
 - npx convex login status   # prints 'Teams: N teams accessible' and '  - <name> (<slug>)' per team; no --json; use this to get --team
-- npx convex dev --once --configure new --team <team-slug> --project papaflow --dev-deployment cloud   # creates project + cloud dev deployment, writes .env.local and convex/README.md + tsconfig.json; --configure overrides the non-TTY anonymous branch
+- npx convex dev --once --configure new --team <team-slug> --project hercules --dev-deployment cloud   # creates project + cloud dev deployment, writes .env.local and convex/README.md + tsconfig.json; --configure overrides the non-TTY anonymous branch
 - CONVEX_ALLOW_ANONYMOUS=false npx convex dev --once   # later pushes; the env var prevents a silent LOCAL anonymous deployment if .env.local is ever missing in a non-TTY shell
 - npx convex dev --until-success
 - npx convex dev --once --run <module:fn>
-- npx convex project create papaflow --team <team-slug>   # alternative: project only, then `npx convex deployment create dev/main --type dev --select`; confirm `--help` at install time
+- npx convex project create hercules --team <team-slug>   # alternative: project only, then `npx convex deployment create dev/main --type dev --select`; confirm `--help` at install time
 - npx convex env set CLERK_JWT_ISSUER_DOMAIN https://<verb-noun-00>.clerk.accounts.dev
 - npx convex env set CLERK_WEBHOOK_SIGNING_SECRET whsec_...
 - npx convex env set ENGINE_SECRET <random-32-bytes>
@@ -56,7 +56,7 @@ Testing: vitest environment "edge-runtime"; convexTest(schema, import.meta.glob(
 - MANUAL: Vercel Marketplace 'Convex' (Vercel Native): creates a Convex project in a dedicated team, syncs deploy keys to the Vercel project (Production + Preview); build command override still required
 - pnpm add convex svix
 - pnpm add -D convex-test vitest @edge-runtime/vm
-- CONVEX_AGENT_MODE=anonymous npx convex dev --once   # forces a local anonymous deployment (no account); not what PapaFlow wants for its cloud dev deployment
+- CONVEX_AGENT_MODE=anonymous npx convex dev --once   # forces a local anonymous deployment (no account); not what HERCULES wants for its cloud dev deployment
 
 ## NON-CONFIRMED FACTS (11 of 45)
 - [wrong] npx convex dev accepts --yes
@@ -85,10 +85,10 @@ Testing: vitest environment "edge-runtime"; convexTest(schema, import.meta.glob(
   SRC: https://docs.convex.dev/cli/reference/deployment; https://docs.convex.dev/cli/deploy-key-types
 - [wrong] Convex MCP tools in this session can create a project
   TRUTH: Plugin runs `npx -y convex@latest mcp start`; tools status(projectDir) ('Get all available deployments for a given Convex project directory' - needs an already configured project), envList/envGet/envSet/envRemove, tables, data, run, runOneoffQuery, functionSpec, insights, logs, all keyed by a deploymentSelector from status. None creates a project or deployment.
-  SRC: ToolSearch schema of mcp__plugin_convex_convex__status/envSet; /Users/sonnysangha/.claude/plugins/cache/claude-plugins-official/convex/1.10.0/.mcp.json
+  SRC: ToolSearch schema of mcp__plugin_convex_convex__status/envSet; ~/.claude/plugins/cache/claude-plugins-official/convex/1.10.0/.mcp.json
 - [partially] Local plugin skills drift vs live docs
   TRUTH: quickstart/design: CONVEX_AGENT_MODE=anonymous confirmed in deploymentSelection.ts; their claim '--configure new does not bypass the team prompt' is wrong when --team is given (validateOrSelectTeam) and --configure does bypass the anonymous branch. env skill: 'process.env only in actions' contradicts docs. auth skill targets @convex-dev/auth (not Clerk). workflow skill is @convex-dev/workflow (not Vercel Workflow). test skill's finishInProgressScheduledFunctions is valid (docs list it). design skill's typed env export matches docs (convex>=1.39).
-  SRC: /Users/sonnysangha/.claude/plugins/cache/claude-plugins-official/convex/1.10.0/skills/*/SKILL.md vs docs cited above
+  SRC: ~/.claude/plugins/cache/claude-plugins-official/convex/1.10.0/skills/*/SKILL.md vs docs cited above
 - [unverifiable] svix runs inside the Convex runtime for httpAction
   TRUTH: Convex's own demo imports svix in convex/http.ts (non-Node runtime), so it bundles; svix@2.2.0 declares engines node>=22, which is only an npm warning. Confirm the first `npx convex dev --once` push succeeds with `import { Webhook } from "svix"` in http.ts; fall back to `standardwebhooks` if the bundle fails.
   SRC: https://raw.githubusercontent.com/get-convex/convex-demos/main/users-and-clerk-webhooks/convex/http.ts; npm view svix engines
@@ -136,10 +136,10 @@ Testing: vitest environment "edge-runtime"; convexTest(schema, import.meta.glob(
 npx convex login status
 # 1) create project + cloud dev deployment, push once, write .env.local
 #    (--configure new bypasses the non-TTY anonymous branch; --team/--project avoid prompts)
-npx convex dev --once --configure new --team <team-slug> --project papaflow --dev-deployment cloud
+npx convex dev --once --configure new --team <team-slug> --project hercules --dev-deployment cloud
 # writes .env.local:
 #   # Deployment used by `npx convex dev`
-#   CONVEX_DEPLOYMENT=dev:<adjective-animal-123> # team: <slug>, project: papaflow
+#   CONVEX_DEPLOYMENT=dev:<adjective-animal-123> # team: <slug>, project: hercules
 #   NEXT_PUBLIC_CONVEX_URL=https://<adjective-animal-123>.convex.cloud
 # and convex/README.md + convex/tsconfig.json (skipped if present)
 # 2) secrets on the dev deployment

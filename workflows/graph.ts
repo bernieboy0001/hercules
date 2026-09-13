@@ -7,7 +7,7 @@ import { NODES } from "@/nodes/registry";
 import type { RunEdge, RunGraph, RunNode } from "@/workflows/types";
 
 /** The React Flow node type the canvas stores on every node (`components/canvas/graph-io.ts`). */
-const PAPAFLOW_NODE_TYPE = "papaflow";
+const HERCULES_NODE_TYPE = "hercules";
 
 /** Default source handle: the canvas leaves `sourceHandle` null for a node's single output. */
 const DEFAULT_HANDLE = "out";
@@ -67,7 +67,7 @@ function toRunNode(raw: unknown, index: number, takenKeys: Set<string>): RunNode
 
   return {
     id,
-    type: toNonEmptyString(raw.type) ?? PAPAFLOW_NODE_TYPE,
+    type: toNonEmptyString(raw.type) ?? HERCULES_NODE_TYPE,
     data: {
       nodeType,
       key: keyFor(data.key, nodeType, index, takenKeys),

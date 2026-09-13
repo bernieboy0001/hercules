@@ -25,9 +25,9 @@ Native Convex integration is Dashboard-only (dashboard.clerk.com/apps/setup/conv
 
 ## COMMANDS
 - clerk --version   # 3.2.0 installed; npm latest 3.3.0 (optional: `clerk update`, then re-run `clerk api ls webhook`)
-- clerk whoami   # sonny.sangha@gmail.com, linked: null
-- clerk apps create "PapaFlow" --json   # POST /v1/platform/applications; JSON includes application_id + instances[] (dev instance, publishable_key; secret_key stripped)
-- clerk link --app <application_id>   # run inside /Users/sonnysangha/Downloads/papaflow
+- clerk whoami   # <your-email>, linked: null
+- clerk apps create "HERCULES" --json   # POST /v1/platform/applications; JSON includes application_id + instances[] (dev instance, publishable_key; secret_key stripped)
+- clerk link --app <application_id>   # run inside ~/Downloads/hercules
 - clerk doctor --json
 - clerk enable orgs --max-members 5 --yes   # organization_settings.enabled=true, max_allowed_memberships=5 (add --force-selection to require an active org)
 - clerk enable billing --for orgs --yes --no-skills   # billing.organization_enabled=true (+ orgs); auto-creates default org plan slug free_org; needs a claimed (non-keyless) app
@@ -53,11 +53,11 @@ Native Convex integration is Dashboard-only (dashboard.clerk.com/apps/setup/conv
 
 ## NON-CONFIRMED FACTS (11 of 37)
 - [partially] CLAUDE.md rule 10: use has({ feature: 'org:slug' }) with the explicit org: prefix
-  TRUTH: Valid but not mandatory. @clerk/shared authorization.ts: ORG_SCOPES = new Set(['o','org','organization']); USER_SCOPES = new Set(['u','user']); checkForFeatureOrPlan splits on ':' and, with an explicit scope, searches only that scope; without one it merges: '[...orgFeatures, ...userFeatures].includes(id)' ('Since org scoped features will not exist if there is not an active org, merging is safe'). B2B docs examples are unprefixed (has({ feature: 'widgets' }), has({ plan: 'gold' })). Keep org: for PapaFlow (stricter).
+  TRUTH: Valid but not mandatory. @clerk/shared authorization.ts: ORG_SCOPES = new Set(['o','org','organization']); USER_SCOPES = new Set(['u','user']); checkForFeatureOrPlan splits on ':' and, with an explicit scope, searches only that scope; without one it merges: '[...orgFeatures, ...userFeatures].includes(id)' ('Since org scoped features will not exist if there is not an active org, merging is safe'). B2B docs examples are unprefixed (has({ feature: 'widgets' }), has({ plan: 'gold' })). Keep org: for HERCULES (stricter).
   SRC: https://raw.githubusercontent.com/clerk/javascript/main/packages/shared/src/authorization.ts ; https://clerk.com/docs/nextjs/guides/billing/for-b2b
 - [partially] PLAN: plans are created in the dashboard under 'Plans for Organizations' (dashboard only)
   TRUTH: Dashboard: Subscription plans > 'Plans for Organizations' tab > Add Plan; features via plan > Add Feature. BUT instance config exposes billing as code (clerk config schema, live): billing.plans.<slug> { name, description, amount (monthly cents), annual_monthly_amount, currency, features: [slugs] ('Empty array clears all features; omit to leave attachments unchanged'), free_trial_enabled, free_trial_days, is_recurring (true), payer_type 'user'|'org' ('Must match an enabled billing type'), publicly_visible } and billing.features.<slug> { name, description, include_in_jwt (true), jwt_value, publicly_visible, avatar_url }. Backend API has only GET /billing/plans (no create). Object key = slug; slug rules undocumented. The local clerk-billing skill's raw PATCH example uses arrays ('plans':[{slug...}]) which does NOT match the live schema (keyed objects).
-  SRC: clerk config schema --app app_3IXYeMsuXyYU8dotjy01HYqRIib ; clerk api ls billing ; https://clerk.com/docs/nextjs/guides/billing/for-b2b ; /Users/sonnysangha/.claude/skills/clerk-billing/SKILL.md line 82
+  SRC: clerk config schema --app app_3IXYeMsuXyYU8dotjy01HYqRIib ; clerk api ls billing ; https://clerk.com/docs/nextjs/guides/billing/for-b2b ; ~/.claude/skills/clerk-billing/SKILL.md line 82
 - [partially] PLAN: features are booleans only; no quantity/metering
   TRUTH: No metering, so PLAN_LIMITS stays in code. But billing.features.<slug>.include_in_jwt (bool, default true) and jwt_value ('Optional custom value included in JWT claims') let a feature carry a static value into the session token.
   SRC: clerk config schema --app <id> --keys billing
@@ -75,16 +75,16 @@ Native Convex integration is Dashboard-only (dashboard.clerk.com/apps/setup/conv
   SRC: https://raw.githubusercontent.com/get-convex/convex-js/main/src/server/authentication.ts ; https://docs.convex.dev/auth/functions-auth ; https://docs.convex.dev/auth/advanced/custom-jwt ; https://clerk.com/docs/guides/organizations/org-slugs-in-urls ; https://clerk.com/docs/guides/sessions/jwt-templates
 - [partially] clerk apps create <name> creates an application with a dev instance and keys
   TRUTH: Binary: `clerk apps create <name> [--json]` (only flag). Output is the application object with `instances` where secret_key is stripped (`instances: T.instances.map(({secret_key, ...R}) => R)`); agent mode/piped defaults to JSON. `clerk apps list --json` shows every app with instances [{instance_id, environment_type: 'development', publishable_key}], so a development instance is created; secret keys never print - use `clerk env pull` after `clerk link --app <id>`. Positional <name> cannot come from --input-json. Response shape not documented (Platform API reference 404) - read application_id from the JSON at run time.
-  SRC: strings of CLI binary (command('create') definition, AH() instance mapper) ; clerk apps list --json ; /Users/sonnysangha/.claude/skills/clerk-cli/references/agent-mode.md
+  SRC: strings of CLI binary (command('create') definition, AH() instance mapper) ; clerk apps list --json ; ~/.claude/skills/clerk-cli/references/agent-mode.md
 - [wrong] Clerk CLI 3.2.0 leaf `--help` works for nested subcommands
   TRUTH: Group help (`clerk apps --help`, `clerk enable --help`, ...) works; leaf `--help` printed the root help in the researcher's run (not re-tested here). All leaf flags above were taken from the command definitions embedded in the 3.2.0 binary. npm latest is 3.3.0 (2026-09-01: 'list --help commands and options alphabetically', keyless->accountless copy); 3.2.0 (2026-08-24) added OAuth session revocation, 15-minute browser auth timeout, error codes.
-  SRC: strings /Users/sonnysangha/.nvm/versions/node/v24.14.1/lib/node_modules/clerk/node_modules/@clerk/cli-darwin-arm64/bin/clerk ; npm view clerk version ; https://github.com/clerk/cli/releases
+  SRC: strings ~/.nvm/versions/node/v24.14.1/lib/node_modules/clerk/node_modules/@clerk/cli-darwin-arm64/bin/clerk ; npm view clerk version ; https://github.com/clerk/cli/releases
 - [partially] clerk deploy usage and production requirements (custom domain, own Stripe)
   TRUTH: `clerk deploy` (hidden default subcommand 'run') is the guided walkthrough cloning dev -> production; `--wait` ('Wait for DNS, SSL, and email DNS verification with retries') is a flag of `clerk deploy status`, NOT of `clerk deploy`; agent JSON output comes from the root `--mode agent` flag (or piped stdout), not a deploy-specific flag. Docs: 'You will need to have a domain you own' and 'be able to add DNS records on your domain'; DNS CNAMEs clerk.<domain> (Frontend API), accounts.<domain>, clkmail.<domain>, propagation 'up to 48hrs'; then `clerk env pull --instance prod`. *.vercel.app cannot be a production Clerk domain (no DNS control). Production billing needs your own Stripe account (dev test accounts cannot be reused).
   SRC: strings of CLI binary (deploy command definitions) ; https://clerk.com/docs/guides/development/deployment/production ; https://clerk.com/changelog/2026-06-10-clerk-deploy ; https://clerk.com/docs/guides/billing/overview
 - [partially] Local skills clerk-cli and clerk-billing exist and match live docs
-  TRUTH: /Users/sonnysangha/.claude/skills/clerk-cli/SKILL.md exists, pinned to clerk 1.4.0 (installed 3.2.0; predates enable/deploy/webhooks). /Users/sonnysangha/.claude/skills/clerk-billing is a symlink to ~/.agents/skills/clerk-billing (SKILL.md v1.1.0 + references b2b-patterns.md, billing-webhooks.md, ...) - the researcher's 'not found' was wrong. Drift in clerk-billing: `--for org` (CLI wants orgs), raw PATCH example with array-shaped billing.plans/features (live schema uses slug-keyed objects), links to seat-limit-plans (live page is seat-based-plans), a `subscriptionItem.expired` event that is not in Webhooks.ts. Its payer.organization_id / one-active-item-per-payer guidance matches the types.
-  SRC: ls -la /Users/sonnysangha/.claude/skills ; /Users/sonnysangha/.claude/skills/clerk-cli/SKILL.md line 16 ; /Users/sonnysangha/.claude/skills/clerk-billing/SKILL.md ; references/b2b-patterns.md
+  TRUTH: ~/.claude/skills/clerk-cli/SKILL.md exists, pinned to clerk 1.4.0 (installed 3.2.0; predates enable/deploy/webhooks). ~/.claude/skills/clerk-billing is a symlink to ~/.agents/skills/clerk-billing (SKILL.md v1.1.0 + references b2b-patterns.md, billing-webhooks.md, ...) - the researcher's 'not found' was wrong. Drift in clerk-billing: `--for org` (CLI wants orgs), raw PATCH example with array-shaped billing.plans/features (live schema uses slug-keyed objects), links to seat-limit-plans (live page is seat-based-plans), a `subscriptionItem.expired` event that is not in Webhooks.ts. Its payer.organization_id / one-active-item-per-payer guidance matches the types.
+  SRC: ls -la ~/.claude/skills ; ~/.claude/skills/clerk-cli/SKILL.md line 16 ; ~/.claude/skills/clerk-billing/SKILL.md ; references/b2b-patterns.md
 
 ## CONFIRMED FACTS
 - CLAUDE.md rule 10 / PLAN: Clerk Core 3 (March 2026) removed <Protect>; <Show when={...}> is the replacement → Changelog: '<Protect>, <SignedIn>, and <SignedOut> are replaced by a single <Show> component'. import { Show } from '@clerk/nextjs'. Props: when: 'signed-in' | 'signed-out' | {feature} | {permission} | {plan} | {role} | (has) => boolean; fallback?: JSX; treatP
@@ -302,5 +302,5 @@ export type PlanSlug = keyof typeof PLAN_LIMITS
 # ConvexProviderWithClerk uses getToken({ template: 'convex' }) whenever sessionClaims.aud !== 'convex'
 clerk api /jwt_templates -X POST -d '{"name":"convex","claims":{"aud":"convex"}}' --yes
 # Caveat: template tokens exclude sid/v/pla/fea, so plan/feature claims will NOT reach ctx.auth.getUserIdentity();
-# prefer the Dashboard 'Activate Convex integration' (raw session token) for PapaFlow.
+# prefer the Dashboard 'Activate Convex integration' (raw session token) for HERCULES.
 ```

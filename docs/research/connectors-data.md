@@ -31,9 +31,9 @@ NODE: seal/open order verified by execution on v24.14.1 (tag 16 bytes; wrong AAD
 ## COMMANDS
 - MANUAL: Notion - https://app.notion.com/developers/connections > New connection > Distribution: Public; add redirect URI https://<app>/api/oauth/notion/callback (cannot be changed afterwards); copy OAuth Client ID / Client Secret -> NOTION_CLIENT_ID / NOTION_CLIENT_SECRET. Webhook trigger (v2): same connection > Webhooks tab > + Create a subscription > URL https://<app>/api/events/notion > paste back the verification_token that Notion POSTs.
 - MANUAL: Airtable - https://airtable.com/create/oauth > Register new OAuth integration: name, redirect URL https://<app>/api/oauth/airtable/callback, scopes data.records:read data.records:write schema.bases:read webhook:manage; Generate client secret (shown once) -> AIRTABLE_CLIENT_ID / AIRTABLE_CLIENT_SECRET.
-- MANUAL: Linear - each user creates a personal API key at https://linear.app/settings/account/security and pastes it into PapaFlow. OAuth path (optional): https://linear.app/settings/api/applications/new, redirect https://<app>/api/oauth/linear/callback, scopes read write issues:create (+ admin for webhooks); tokens expire in 24h with rotating refresh tokens.
+- MANUAL: Linear - each user creates a personal API key at https://linear.app/settings/account/security and pastes it into HERCULES. OAuth path (optional): https://linear.app/settings/api/applications/new, redirect https://<app>/api/oauth/linear/callback, scopes read write issues:create (+ admin for webhooks); tokens expire in 24h with rotating refresh tokens.
 - MANUAL: GitHub - each user creates a fine-grained PAT at https://github.com/settings/personal-access-tokens/new: Resource owner, Repository access = Only select repositories, Repository permissions Issues: Read and write (+ Webhooks: Read and write for the trigger). Org-owned repos may need owner approval.
-- MANUAL: Stripe - https://dashboard.stripe.com/webhooks (Workbench > Webhooks) > Create an event destination > Your account > choose event types > Continue > Webhook endpoint > Endpoint URL https://<app>/api/events/stripe/<connectionId> > Reveal secret > paste whsec_ into PapaFlow (test and live secrets differ).
+- MANUAL: Stripe - https://dashboard.stripe.com/webhooks (Workbench > Webhooks) > Create an event destination > Your account > choose event types > Continue > Webhook endpoint > Endpoint URL https://<app>/api/events/stripe/<connectionId> > Reveal secret > paste whsec_ into HERCULES (test and live secrets differ).
 - npm install -g @stripe/cli   # or: brew install stripe   (local binary is 1.41.2; latest 1.50.8)
 - stripe login
 - stripe listen --forward-to localhost:3000/api/events/stripe/<connectionId> --events payment_intent.succeeded   # prints whsec_..., stable across restarts; --print-secret prints only the secret
@@ -71,7 +71,7 @@ NODE: seal/open order verified by execution on v24.14.1 (tag 16 bytes; wrong AAD
   SRC: https://docs.github.com/en/rest/about-the-rest-api/api-versions
 - [wrong] AAD is `${userId}:${connectionId}` (PLAN.md L252).
   TRUTH: CLAUDE.md rule 2 says AAD = `${orgId}:${connectionId}` and rule 12 makes ownership organisational; PLAN.md L252 contradicts it. Use orgId so a connection survives the creating user leaving the org.
-  SRC: /Users/sonnysangha/Downloads/papaflow/CLAUDE.md L76, L86 vs docs/PLAN.md L252
+  SRC: ~/Downloads/hercules/CLAUDE.md L76, L86 vs docs/PLAN.md L252
 
 ## CONFIRMED FACTS
 - Notion-Version: 2026-03-11 is the current header value (PLAN.md L119, L443). → Versioning page lists 2021-05-13, 2022-06-28, 2025-09-03, 2026-03-11 with 2026-03-11 latest; 'The Notion-Version header must be included in all REST API requests.' Beta features use an extra Notion-Beta header (e.g. notion-as-code-2026-07-31), not a new versio

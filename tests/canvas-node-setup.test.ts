@@ -127,7 +127,7 @@ describe("setup state never reaches Convex", () => {
     const nodes = [
       {
         id: "n1",
-        type: "papaflow" as const,
+        type: "hercules" as const,
         position: { x: 0, y: 0 },
         data: {
           nodeType: "manual.trigger",

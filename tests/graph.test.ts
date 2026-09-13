@@ -13,7 +13,7 @@ type StoredNodeLike = {
 function storedNode(id: string, nodeType: string, label = id): StoredNodeLike {
   return {
     id,
-    type: "papaflow",
+    type: "hercules",
     position: { x: 0, y: 0 },
     data: { nodeType, label, inputs: {} },
   };
@@ -62,7 +62,7 @@ describe("toRunGraph", () => {
     expect(Object.keys(graph.nodes).sort()).toEqual(["a", "b", "t"]);
     expect(graph.nodes.a).toEqual({
       id: "a",
-      type: "papaflow",
+      type: "hercules",
       data: { nodeType: "http.request", key: "http_request_2", label: "a", inputs: {} },
     });
     expect(graph.edges).toHaveLength(2);

@@ -36,7 +36,7 @@ const recordSkippedMock = vi.mocked(recordSkipped);
 const recordFinishMock = vi.mocked(recordFinish);
 
 function node(id: string, nodeType: string, key: string) {
-  return { id, type: "papaflow", position: { x: 0, y: 0 }, data: { nodeType, key } };
+  return { id, type: "hercules", position: { x: 0, y: 0 }, data: { nodeType, key } };
 }
 
 function edge(source: string, target: string, sourceHandle?: string) {

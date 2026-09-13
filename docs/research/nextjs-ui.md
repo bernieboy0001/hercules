@@ -42,9 +42,9 @@ vitest 4.1.11 (Node ^20||^22||>=24; bundles vite as a dependency), `test.project
 }
 
 ## COMMANDS
-- cd /Users/sonnysangha/Documents/Builds/n8n-clone-demo   # must be empty except .git/.gitignore/.claude/.vscode/docs/LICENSE — NO CLAUDE.md yet
+- cd ~/Documents/Builds/n8n-clone-demo   # must be empty except .git/.gitignore/.claude/.vscode/docs/LICENSE — NO CLAUDE.md yet
 - pnpm create next-app@16.3.4 . --yes --ts --tailwind --eslint --app --no-src-dir --import-alias "@/*" --use-pnpm --disable-git --no-agents-md   # '.' => appName n8n-clone-demo; do NOT pass --turbopack (not an option, silently ignored; Turbopack is already default)
-- cp /Users/sonnysangha/Downloads/papaflow/CLAUDE.md . && mkdir -p docs && cp /Users/sonnysangha/Downloads/papaflow/docs/*.md docs/   # after scaffold (CLAUDE.md would have blocked create-next-app)
+- cp ~/Downloads/hercules/CLAUDE.md . && mkdir -p docs && cp ~/Downloads/hercules/docs/*.md docs/   # after scaffold (CLAUDE.md would have blocked create-next-app)
 - pnpm dlx shadcn@4.20.0 init -d   # Base UI (default since July 2026), style 'base-nova', non-interactive; sonner IS available here
 - pnpm dlx shadcn@4.20.0 init -d -b radix   # ALTERNATIVE: Radix, style 'radix-nova' — pick one; use this only if a dependency needs Radix (e.g. AI Elements)
 - pnpm dlx shadcn@4.20.0 add -y button input dialog sheet dropdown-menu badge tabs tooltip sonner card select textarea label separator scroll-area command popover switch table skeleton   # add -y default is false, so -y is required for CI; installs sonner + next-themes
@@ -101,12 +101,12 @@ vitest 4.1.11 (Node ^20||^22||>=24; bundles vite as a dependency), `test.project
   SRC: https://docs.convex.dev/testing/convex-test ; https://vitest.dev/guide/projects ; https://vitest.dev/config/server ; npm view convex-test readme
 - [wrong] Vendor shadcn SKILL.md components.json example and defaults
   TRUTH: Skill shows baseColor options gray/slate and tailwind.config 'tailwind.config.ts', and says Radix is the default; current CLI writes style 'base-nova'/'radix-nova', baseColor neutral|stone|zinc|mauve|olive|mist|taupe, tailwind.config '' and Base UI default. Its removed-flags list (--style, --base-color, --src-dir) and `-d` advice are correct.
-  SRC: /Users/sonnysangha/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/shadcn/SKILL.md ; schema.json ; 2026-07-base-ui-default.mdx
+  SRC: ~/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/shadcn/SKILL.md ; schema.json ; 2026-07-base-ui-default.mdx
 
 ## CONFIRMED FACTS
 - Current Next.js major is 16; latest stable 16.3.4; create-next-app tracks it → npm dist-tags.latest: next 16.3.4, create-next-app 16.3.4, eslint-config-next 16.3.4; engines.node >=20.9.0. Docs pages report version 16.3.4.
-- create-next-app can scaffold into "." and n8n-clone-demo is a valid name → `const appPath = resolve(projectPath); const appName = basename(appPath)`; validate-npm-package-name('n8n-clone-demo') => {validForNewPackages:true}. Then `if (existsSync(appPath) && !isFolderEmpty(appPath, appName)) process.exit(1)`. /Users/sonnysangha/Docume
-- --agents-md writes AGENTS.md + CLAUDE.md → helpers/generate-agent-files.ts writes AGENTS.md (Next.js agent rules) and CLAUDE.md containing only `@AGENTS.md`, via fs.writeFileSync with no existence check (unconditional overwrite). Use `--no-agents-md` or overwrite the stub with the papaflow CLAUDE.md af
+- create-next-app can scaffold into "." and n8n-clone-demo is a valid name → `const appPath = resolve(projectPath); const appName = basename(appPath)`; validate-npm-package-name('n8n-clone-demo') => {validForNewPackages:true}. Then `if (existsSync(appPath) && !isFolderEmpty(appPath, appName)) process.exit(1)`. ~/Docume
+- --agents-md writes AGENTS.md + CLAUDE.md → helpers/generate-agent-files.ts writes AGENTS.md (Next.js agent rules) and CLAUDE.md containing only `@AGENTS.md`, via fs.writeFileSync with no existence check (unconditional overwrite). Use `--no-agents-md` or overwrite the stub with the hercules CLAUDE.md af
 - `pnpm create next-app@<version>` is a valid invocation → Official installation page shows `pnpm create next-app@latest my-app --yes`; pnpm 11.24.0 `pnpm create <name>` maps to the create-<name> package. Pin: `pnpm create next-app@16.3.4 . ...`.
 - Template installs React 19 and Tailwind v4 → templates/index.ts: react/react-dom = '19.2.8' (exact), next = resolved latest, typescript '^5', @types/node '^20', @types/react '^19', @types/react-dom '^19', tailwindcss '^4', @tailwindcss/postcss '^4', eslint '^9', eslint-config-next = resolved latest. Scri
 - Turbopack is default for next dev and next build → 'Turbopack is now the default bundler. To use Webpack run `next dev --webpack` or `next build --webpack`.'

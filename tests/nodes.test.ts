@@ -223,7 +223,7 @@ describe("email.send", () => {
 
     const body = JSON.parse(String(init?.body)) as Record<string, unknown>;
     // No connection: the platform account, which may only send from the sandbox address.
-    expect(body.from).toBe("PapaFlow <onboarding@resend.dev>");
+    expect(body.from).toBe("HERCULES <onboarding@resend.dev>");
     expect(body.to).toEqual(["a@example.com"]);
     expect(body.subject).toBe("Hi");
     expect(body.text).toBe("There");
@@ -353,7 +353,7 @@ describe("email.send", () => {
     expect(out).toEqual({ id: "msg_sandbox" });
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(String(init?.body)) as { from: string };
-    expect(body.from).toBe("PapaFlow <onboarding@resend.dev>");
+    expect(body.from).toBe("HERCULES <onboarding@resend.dev>");
     // The account's own key, not the platform's.
     expect(headersOf(init).Authorization).toBe("Bearer re_credential_key");
   });

@@ -150,7 +150,7 @@ function propertyValue(name: string, type: string, value: PropertyValue): unknow
   const unsupported = UNSUPPORTED_TYPES[type];
   if (unsupported) {
     throw new ConnectorError(
-      `${name} is ${unsupported}; PapaFlow can only write ${SUPPORTED_TYPES}`,
+      `${name} is ${unsupported}; HERCULES can only write ${SUPPORTED_TYPES}`,
       400,
     );
   }

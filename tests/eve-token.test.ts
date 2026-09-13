@@ -32,7 +32,7 @@ function engineAuth(secret = SECRET) {
 }
 
 function bearer(token: string): Request {
-  return new Request("https://papaflow.test/eve/agents/runtime/eve/v1/session", {
+  return new Request("https://hercules.test/eve/agents/runtime/eve/v1/session", {
     method: "POST",
     headers: { authorization: `Bearer ${token}` },
   });
@@ -126,8 +126,8 @@ describe("mintEngineToken", () => {
 
 describe("runtimeAgentHost", () => {
   it("points at the agent's mount path under APP_ORIGIN, with no double slash", () => {
-    process.env.APP_ORIGIN = "https://papaflow.test/";
-    expect(runtimeAgentHost()).toBe("https://papaflow.test/eve/agents/runtime");
+    process.env.APP_ORIGIN = "https://hercules.test/";
+    expect(runtimeAgentHost()).toBe("https://hercules.test/eve/agents/runtime");
   });
 
   it("falls back to localhost so `pnpm dev` needs no extra configuration", () => {

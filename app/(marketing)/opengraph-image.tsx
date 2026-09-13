@@ -6,7 +6,7 @@ import { ImageResponse } from "next/og";
  * `marketing.css`, and the logo is built from plain boxes instead of the SVG the site uses.
  */
 export const alt =
-  "PapaFlow — automate your work with a canvas, not a codebase";
+  "HERCULES — automate your work with a canvas, not a codebase";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,7 +52,7 @@ export default function OpengraphImage() {
             />
           </div>
           <div style={{ fontSize: 30, fontWeight: 600, letterSpacing: -0.5 }}>
-            PapaFlow
+            HERCULES
           </div>
         </div>
 

@@ -57,7 +57,7 @@ function tokenFrom(credential: Record<string, unknown>): string {
   const field = tokenFieldName(CONNECTORS[provider]);
   if (!field) {
     throw new ConnectorError(
-      `PapaFlow cannot tell which part of a ${provider || "this"} connection is its token. ` +
+      `HERCULES cannot tell which part of a ${provider || "this"} connection is its token. ` +
         "Set auth to none and add the header yourself.",
       400,
     );

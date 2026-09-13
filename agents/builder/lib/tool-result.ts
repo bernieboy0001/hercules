@@ -25,7 +25,7 @@ import {
 
 /** The message a rejected shared secret earns, because "unauthorized" tells an operator nothing. */
 const SHARED_SECRET_REJECTED =
-  "Convex rejected PapaFlow's shared secret — ENGINE_SECRET on this service and on the Convex " +
+  "Convex rejected HERCULES's shared secret — ENGINE_SECRET on this service and on the Convex " +
   "deployment (npx convex env set ENGINE_SECRET) do not match";
 
 /** The terminal result. `retryable: false` is the part the model is instructed to obey. */
@@ -83,7 +83,7 @@ export function serviceUnavailable(error: unknown): ToolFailure {
   return {
     ok: false,
     error: "service_unavailable",
-    message: `The Builder cannot reach PapaFlow's backend: ${messageOf(error)}.`,
+    message: `The Builder cannot reach HERCULES's backend: ${messageOf(error)}.`,
     retryable: false,
   };
 }

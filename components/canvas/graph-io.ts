@@ -6,10 +6,10 @@ import type { Edge, Node, Viewport } from "@xyflow/react";
 import { NODES } from "@/nodes/registry";
 
 /** The only React Flow node type this canvas renders; stored on every node as `type`. */
-export const PAPAFLOW_NODE_TYPE = "papaflow";
+export const HERCULES_NODE_TYPE = "hercules";
 
 /** Drag payload: the sidebar writes a node `type` here, the canvas reads it on drop. */
-export const NODE_DRAG_MIME = "application/papaflow-node";
+export const NODE_DRAG_MIME = "application/hercules-node";
 
 /** The single source handle of a node that does not branch; edges leave it with no `sourceHandle`. */
 export const DEFAULT_HANDLE = "out";
@@ -51,11 +51,11 @@ export type WorkflowNodeData = {
 /** What actually reaches Convex — the run-state fields are stripped on the way out. */
 export type StoredNodeData = Omit<WorkflowNodeData, "status" | "durationMs">;
 
-export type WorkflowNodeType = Node<WorkflowNodeData, typeof PAPAFLOW_NODE_TYPE>;
+export type WorkflowNodeType = Node<WorkflowNodeData, typeof HERCULES_NODE_TYPE>;
 
 export type StoredNode = {
   id: string;
-  type: typeof PAPAFLOW_NODE_TYPE;
+  type: typeof HERCULES_NODE_TYPE;
   position: { x: number; y: number };
   /** Present only once someone has resized this node; React Flow measures the rest. */
   width?: number;
@@ -135,7 +135,7 @@ function toNode(raw: unknown): WorkflowNodeType | null {
 
   return {
     id: raw.id,
-    type: PAPAFLOW_NODE_TYPE,
+    type: HERCULES_NODE_TYPE,
     position: { x: toFinite(position.x, 0), y: toFinite(position.y, 0) },
     ...(width === undefined ? {} : { width }),
     ...(height === undefined ? {} : { height }),
@@ -348,7 +348,7 @@ export function toStoredGraph(
       const height = toSize(node.height);
       return {
         id: node.id,
-        type: PAPAFLOW_NODE_TYPE,
+        type: HERCULES_NODE_TYPE,
         position: { x: node.position.x, y: node.position.y },
         ...(width === undefined ? {} : { width }),
         ...(height === undefined ? {} : { height }),

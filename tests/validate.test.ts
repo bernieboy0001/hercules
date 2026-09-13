@@ -367,14 +367,14 @@ describe("validateAndDiscover", () => {
     expect(result.error).toBe("OpenAI rejected the key (HTTP 500)");
   });
 
-  it("sends papaflow's user agent and an abort signal on every request", async () => {
+  it("sends hercules's user agent and an abort signal on every request", async () => {
     const calls = stubFetch({
       "https://api.openai.com/v1/models": { body: { data: [{ id: "gpt-5.4" }] } },
     });
 
     await validateAndDiscover("openai", "sk-live-abcd");
 
-    expect(calls[0].headers["User-Agent"]).toBe("papaflow/0.1");
+    expect(calls[0].headers["User-Agent"]).toBe("hercules/0.1");
     expect(calls[0].signal).toBeInstanceOf(AbortSignal);
   });
 

@@ -16,12 +16,12 @@
 
 import { NODES } from "@/nodes/registry";
 
-/** The React Flow node type every canvas node carries; mirrors `PAPAFLOW_NODE_TYPE`. */
-const PAPAFLOW_NODE_TYPE = "papaflow";
+/** The React Flow node type every canvas node carries; mirrors `HERCULES_NODE_TYPE`. */
+const HERCULES_NODE_TYPE = "hercules";
 
 export type TemplateNode = {
   id: string;
-  type: typeof PAPAFLOW_NODE_TYPE;
+  type: typeof HERCULES_NODE_TYPE;
   position: { x: number; y: number };
   data: {
     nodeType: string;
@@ -75,7 +75,7 @@ function node(
 ): TemplateNode {
   return {
     id: key,
-    type: PAPAFLOW_NODE_TYPE,
+    type: HERCULES_NODE_TYPE,
     position: { x: column * COLUMN, y: row * ROW },
     data: { nodeType, key, label, inputs },
   };

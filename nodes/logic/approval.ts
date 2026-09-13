@@ -128,7 +128,7 @@ async function postSlack(inputs: ApprovalInputs, token: string, stepId: string):
         { type: "section", text: { type: "mrkdwn", text: inputs.message } },
         {
           type: "actions",
-          block_id: "papaflow_approval",
+          block_id: "hercules_approval",
           elements: [
             {
               type: "button",

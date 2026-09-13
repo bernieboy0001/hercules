@@ -38,7 +38,7 @@ import { useRouter } from "next/navigation";
  */
 
 /** The marker written onto the duplicate history entry. Debugging aid only — nothing reads it. */
-const GUARD_STATE_KEY = "__papaflowLeaveGuard";
+const GUARD_STATE_KEY = "__herculesLeaveGuard";
 
 /** The parts of a click on an anchor that decide whether it is ours to intercept. */
 export type LinkClick = {

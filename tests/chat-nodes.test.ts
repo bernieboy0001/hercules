@@ -358,11 +358,11 @@ describe("telegram.sendMessage", () => {
     const fetchMock = reply({ ok: true, result: { message_id: 1 } });
 
     await telegramSendNode.run(
-      ctx({ connectionId: "c1", chatId: "@papaflow", text: "a < b & c", parseMode: "none" as const }, CREDENTIAL),
+      ctx({ connectionId: "c1", chatId: "@hercules", text: "a < b & c", parseMode: "none" as const }, CREDENTIAL),
     );
 
     expect(bodyOf((fetchMock.mock.calls[0] as FetchArgs)[1])).toEqual({
-      chat_id: "@papaflow",
+      chat_id: "@hercules",
       text: "a < b & c",
     });
   });

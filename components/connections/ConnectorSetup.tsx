@@ -139,7 +139,7 @@ export function ConnectorSetupSection({ name, setup, defaultOpen }: ConnectorSet
             into separate text nodes with `<!-- -->` between them. */}
         {needsPublicOrigin ? (
           <p className="text-xs text-amber-600 dark:text-amber-500">
-            {`${name} only accepts public HTTPS URLs — use your deployed origin (e.g. https://papaflow.vercel.app) or a tunnel while developing.`}
+            {`${name} only accepts public HTTPS URLs — use your deployed origin (e.g. https://hercules.vercel.app) or a tunnel while developing.`}
           </p>
         ) : null}
 

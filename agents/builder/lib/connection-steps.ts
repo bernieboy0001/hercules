@@ -50,7 +50,7 @@ export async function prepareConnectionRequest(
     const connector = CONNECTORS[provider];
     if (!connector) {
       throw new Error(
-        `PapaFlow has no connector called "${provider}". The providers it supports are: ${Object.keys(CONNECTORS).join(", ")}.`,
+        `HERCULES has no connector called "${provider}". The providers it supports are: ${Object.keys(CONNECTORS).join(", ")}.`,
       );
     }
     if (connector.requiresFeature && !session.features.includes(connector.requiresFeature)) {

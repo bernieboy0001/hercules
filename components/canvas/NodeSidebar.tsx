@@ -212,8 +212,8 @@ function NodeSidebarItem({
  * `useSyncExternalStore` gives the server and the first hydration pass `false` (open) before the
  * stored answer swaps in, so the markup never disagrees with itself.
  */
-const COLLAPSE_KEY = "papaflow:nodes-collapsed";
-const COLLAPSE_EVENT = "papaflow:nodes-collapsed";
+const COLLAPSE_KEY = "hercules:nodes-collapsed";
+const COLLAPSE_EVENT = "hercules:nodes-collapsed";
 
 function subscribeToCollapse(onChange: () => void): () => void {
   window.addEventListener("storage", onChange);

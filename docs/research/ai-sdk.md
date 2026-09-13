@@ -73,7 +73,7 @@ ai@7.0.90 is dist-tag latest (published 2026-09-02); ESM-only ("type":"module", 
   SRC: https://fal.ai/docs/platform-apis/v1/models ; https://fal.ai/docs/reference/platform-apis/authentication
 - [wrong] Local vendor skills (vercel-plugin 0.30.0 ai-sdk and ai-gateway) are current for AI SDK 7.
   TRUTH: Both target ai v6: ai-sdk SKILL.md validate rules say `stopWhen: stepCountIs(N)`, "generateObject was removed in AI SDK v6", `Experimental_Agent is deprecated in v6`, docs at node_modules/ai/docs for ai@6.0.34+; references/common-errors.md uses stepCountIs and claude-opus-4.5; ai-gateway SKILL.md pins ai@^6.0.0 / @ai-sdk/gateway@^3.0.0, uses experimental_generateImage and gemini-3.1-flash-image-preview/gpt-5.4/claude-sonnet-4.6. Use only for generic shapes (provider/model strings, providerOptions.gateway.order/only/models/user/tags, getAvailableModels).
-  SRC: /Users/sonnysangha/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/ai-sdk/SKILL.md ; .../ai-sdk/references/common-errors.md ; .../ai-gateway/SKILL.md
+  SRC: ~/.claude/plugins/cache/vercel-vercel-plugin/vercel-plugin/0.30.0/skills/ai-sdk/SKILL.md ; .../ai-sdk/references/common-errors.md ; .../ai-gateway/SKILL.md
 
 ## CONFIRMED FACTS
 - Current "ai" major is 7; exact version to pin. → ai@7.0.90 is dist-tag latest (published 2026-09-02T03:17Z). ai-v6 (6.0.275) and ai-v5 (5.0.251) tags still patched. ai depends on @ai-sdk/gateway 4.0.72, @ai-sdk/provider 4.0.10, @ai-sdk/provider-utils 5.0.36.
@@ -166,7 +166,7 @@ import { z } from 'zod';
 
 const agent = new ToolLoopAgent({
   model,
-  instructions: 'You are the PapaFlow runtime agent.',   // no `system` field on the agent
+  instructions: 'You are the HERCULES runtime agent.',   // no `system` field on the agent
   tools: {
     slackPost: tool({
       description: 'Post to Slack',

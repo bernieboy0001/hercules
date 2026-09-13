@@ -19,7 +19,7 @@ import type { EveMessage, EveMessageInputRequest } from "eve/react";
  * caller's organisation on every write — it is just the address of the canvas the user is looking
  * at.
  */
-export const BUILDER_WORKFLOW_HEADER = "x-papaflow-workflow";
+export const BUILDER_WORKFLOW_HEADER = "x-hercules-workflow";
 
 /**
  * The Clerk feature slug that pays for the Builder. Named once, checked three times: `<Show>` in

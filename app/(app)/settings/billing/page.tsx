@@ -22,7 +22,7 @@ export const metadata: Metadata = {
  * behind `CheckoutButton` (in development that is Clerk's shared test gateway, so no Stripe
  * account is involved).
  *
- * Nothing on this page is a gate, and PapaFlow stores nothing about the subscription: the new plan
+ * Nothing on this page is a gate, and HERCULES stores nothing about the subscription: the new plan
  * arrives on the *next* session token (`pla`/`fea`, ≤ 60 s), which is what Convex, `<Show>` and
  * `has()` all read. Until it refreshes, the walls elsewhere in the app still stand — which is the
  * honest behaviour, because the engine would refuse the run too. `CurrentPlanCard` says so.

@@ -8,7 +8,7 @@ const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const USER_AGENT = RESEND_USER_AGENT;
 // Until the org verifies its own domain, Resend only allows this sender (and only to the
 // account owner's address); anything else is a 400 validation_error.
-const SANDBOX_FROM = "PapaFlow <onboarding@resend.dev>";
+const SANDBOX_FROM = "HERCULES <onboarding@resend.dev>";
 /** Appended to Resend's own refusal when the sandbox sender ran into its one-recipient rule. */
 const VERIFY_HINT = "Verify a domain in Resend to send to anyone.";
 
@@ -48,7 +48,7 @@ function connectedSender(from: string | undefined, credential: Record<string, un
   const domains = domainsOf(credential);
   if (!domains) {
     throw new ConnectorError(
-      "Re-test this Resend connection so PapaFlow knows which domains it may send from",
+      "Re-test this Resend connection so HERCULES knows which domains it may send from",
       400,
     );
   }

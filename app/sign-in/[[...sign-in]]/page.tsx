@@ -4,8 +4,8 @@ import { AuthShell } from "@/components/marketing/AuthShell";
 import { SignInCard } from "@/components/marketing/ClerkCards";
 
 export const metadata: Metadata = {
-  title: "Sign in — PapaFlow",
-  description: "Sign in to your PapaFlow workspace.",
+  title: "Sign in — HERCULES",
+  description: "Sign in to your HERCULES workspace.",
 };
 
 export default function SignInPage() {

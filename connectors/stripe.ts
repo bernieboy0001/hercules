@@ -19,7 +19,7 @@ export const stripeConnector = defineConnector({
       label: "Signing secret",
       kind: "secret",
       placeholder: "whsec_…",
-      help: "From the Stripe webhook endpoint you point at PapaFlow",
+      help: "From the Stripe webhook endpoint you point at HERCULES",
     },
   ],
   docsUrl: "https://dashboard.stripe.com/webhooks",

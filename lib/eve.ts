@@ -25,10 +25,10 @@ import { Client, type ClientSession } from "eve/client";
 export const RUNTIME_AGENT_PATH = "/eve/agents/runtime";
 
 /** `iss` on the engine's token, and the `issuer` the agent's `jwtHmac()` insists on. */
-export const ENGINE_TOKEN_ISSUER = "papaflow-engine";
+export const ENGINE_TOKEN_ISSUER = "hercules-engine";
 
 /** `aud` on the engine's token, and the single entry in the agent's `audiences`. */
-export const ENGINE_TOKEN_AUDIENCE = "papaflow-runtime";
+export const ENGINE_TOKEN_AUDIENCE = "hercules-runtime";
 
 /** Long enough for one agent turn, short enough that a leaked token is worthless by the time it is. */
 export const ENGINE_TOKEN_TTL_SECONDS = 300;

@@ -53,7 +53,7 @@ import {
   graphKey,
   handleLabel,
   NODE_DRAG_MIME,
-  PAPAFLOW_NODE_TYPE,
+  HERCULES_NODE_TYPE,
   sourceHandles,
   toStoredGraph,
   type RunNodeState,
@@ -78,7 +78,7 @@ import { useIsMobile } from "./use-media-query";
 import { NodeSetupContext, WorkflowNode } from "./WorkflowNode";
 
 // Module scope on purpose: a fresh object here remounts every node on every render.
-const nodeTypes: NodeTypes = { [PAPAFLOW_NODE_TYPE]: WorkflowNode };
+const nodeTypes: NodeTypes = { [HERCULES_NODE_TYPE]: WorkflowNode };
 const edgeTypes: EdgeTypes = { [LABELLED_EDGE_TYPE]: EdgeWithLabel };
 
 /** …and to its siblings, so an untaken branch reads as "this did not happen". */

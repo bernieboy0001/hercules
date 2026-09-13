@@ -59,7 +59,7 @@ function expectFailed(result: ConnectorTestResult) {
   return result;
 }
 
-const GET_ME_OK = { body: { ok: true, result: { id: 123456789, is_bot: true, username: "papaflow_bot" } } };
+const GET_ME_OK = { body: { ok: true, result: { id: 123456789, is_bot: true, username: "hercules_bot" } } };
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -91,9 +91,9 @@ describe("telegram connector", () => {
 
     expect(calls).toHaveLength(1);
     expect(calls[0]).toMatchObject({ url: GET_ME, method: "GET" });
-    expect(result.label).toBe("@papaflow_bot");
+    expect(result.label).toBe("@hercules_bot");
     expect(result.hint).toBe(TOKEN.slice(-4));
-    expect(result.meta).toEqual({ bot_username: "papaflow_bot", bot_id: 123456789 });
+    expect(result.meta).toEqual({ bot_username: "hercules_bot", bot_id: 123456789 });
   });
 
   it("reports a rejected token, a described refusal and an unreachable API", async () => {
@@ -126,14 +126,14 @@ describe("telegram connector", () => {
     const extra = await telegramConnector.afterCreate!({
       connectionId: CONNECTION,
       secret: { botToken: TOKEN },
-      appOrigin: "https://papaflow.vercel.app",
+      appOrigin: "https://hercules.vercel.app",
     });
 
     expect(calls).toHaveLength(1);
     expect(calls[0]).toMatchObject({ url: SET_WEBHOOK, method: "POST" });
     expect(calls[0].headers).toMatchObject({ "Content-Type": "application/json" });
 
-    const inboundUrl = `https://papaflow.vercel.app/api/events/telegram/${CONNECTION}`;
+    const inboundUrl = `https://hercules.vercel.app/api/events/telegram/${CONNECTION}`;
     const secretToken = extra.secret?.secretToken ?? "";
     expect(JSON.parse(calls[0].body ?? "{}")).toEqual({
       url: inboundUrl,
@@ -150,7 +150,7 @@ describe("telegram connector", () => {
   it("generates a different secret token for every connection", async () => {
     stubFetch({ [SET_WEBHOOK]: { body: { ok: true, result: true } } });
 
-    const args = { connectionId: CONNECTION, secret: { botToken: TOKEN }, appOrigin: "https://papaflow.vercel.app" };
+    const args = { connectionId: CONNECTION, secret: { botToken: TOKEN }, appOrigin: "https://hercules.vercel.app" };
     const first = await telegramConnector.afterCreate!(args);
     const second = await telegramConnector.afterCreate!(args);
 
@@ -182,7 +182,7 @@ describe("telegram connector", () => {
       telegramConnector.afterCreate!({
         connectionId: CONNECTION,
         secret: { botToken: TOKEN },
-        appOrigin: "https://papaflow.vercel.app",
+        appOrigin: "https://hercules.vercel.app",
       }),
     ).rejects.toThrow(/setWebhook failed/);
   });
@@ -192,7 +192,7 @@ describe("telegram connector", () => {
     const meta = {
       chat_ids: [
         { id: -1001234567890, title: "PapaFam", type: "supergroup" },
-        { id: 42, first_name: "Sonny", type: "private" },
+        { id: 42, first_name: "Jordan", type: "private" },
         { id: 7, type: "private" },
         "not-a-chat",
       ],
@@ -201,7 +201,7 @@ describe("telegram connector", () => {
     // DMs first, and marked as such: a private chat is what somebody reaching for "ask *me*"
     // wants, and a bare first name between two group titles reads like a third group.
     expect(await telegramConnector.pick!("chats", { botToken: TOKEN }, meta)).toEqual([
-      { id: "42", label: "DM · Sonny" },
+      { id: "42", label: "DM · Jordan" },
       // Learned before Telegram sent a name for it: still selectable, labelled by its id.
       { id: "7", label: "7" },
       { id: "-1001234567890", label: "PapaFam" },
@@ -227,7 +227,7 @@ describe("stripe connector", () => {
       name: "signingSecret",
       kind: "secret",
       placeholder: "whsec_…",
-      help: "From the Stripe webhook endpoint you point at PapaFlow",
+      help: "From the Stripe webhook endpoint you point at HERCULES",
     });
   });
 
@@ -254,12 +254,12 @@ describe("stripe connector", () => {
     const extra = await stripeConnector.afterCreate!({
       connectionId: CONNECTION,
       secret: { signingSecret: "whsec_abcdefghijklmnop1234" },
-      appOrigin: "https://papaflow.vercel.app",
+      appOrigin: "https://hercules.vercel.app",
     });
 
     expect(calls).toHaveLength(0);
     expect(extra.secret).toBeUndefined();
-    expect(extra.meta).toEqual({ inboundUrl: `https://papaflow.vercel.app/api/events/stripe/${CONNECTION}` });
+    expect(extra.meta).toEqual({ inboundUrl: `https://hercules.vercel.app/api/events/stripe/${CONNECTION}` });
   });
 });
 

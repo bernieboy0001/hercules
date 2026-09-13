@@ -14,4 +14,4 @@ description: Use when the workflow reads or writes a record — Notion, Airtable
   of the workspace's connections as its credential when you set `connectionId` and `auth`.
 
 `email.send` is the one action that works with no connection at all: without one it sends from
-PapaFlow's own address, and with a Resend connection it sends from the workspace's domain.
+HERCULES's own address, and with a Resend connection it sends from the workspace's domain.

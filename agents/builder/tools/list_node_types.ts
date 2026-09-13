@@ -6,7 +6,7 @@ import { requireBuilder } from "../lib/session";
 import { toolResult } from "../lib/tool-result";
 
 /**
- * What PapaFlow can do, from the node registry itself — so a node added to `nodes/registry.ts`
+ * What HERCULES can do, from the node registry itself — so a node added to `nodes/registry.ts`
  * is a node the Builder can use the same day, with no prompt to update.
  *
  * Two depths on purpose: no arguments gives one line per node (twenty-eight JSON Schemas at once

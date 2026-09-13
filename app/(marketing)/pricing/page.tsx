@@ -13,18 +13,18 @@ import { PRICING } from "@/lib/plans";
 const DESCRIPTION = `Free to start, $${PRICING.pro.monthly} a month for Pro. Plans are per organisation, and AI usage is billed by the provider whose key you bring.`;
 
 export const metadata: Metadata = {
-  title: "Pricing — PapaFlow",
+  title: "Pricing — HERCULES",
   description: DESCRIPTION,
   openGraph: {
     type: "website",
     url: "/pricing",
-    siteName: "PapaFlow",
-    title: "Pricing — PapaFlow",
+    siteName: "HERCULES",
+    title: "Pricing — HERCULES",
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing — PapaFlow",
+    title: "Pricing — HERCULES",
     description: DESCRIPTION,
   },
 };
@@ -33,7 +33,7 @@ const FAQ = [
   {
     question: "Do I need to bring my own AI keys?",
     answer:
-      "Yes, and that is the point. You add an OpenAI, Anthropic, Gemini or Groq key as a connection, PapaFlow tests it and seals it, and the AI nodes call the provider as you. Model usage lands on your provider bill at their price, so your plan here never changes because a workflow got chatty.",
+      "Yes, and that is the point. You add an OpenAI, Anthropic, Gemini or Groq key as a connection, HERCULES tests it and seals it, and the AI nodes call the provider as you. Model usage lands on your provider bill at their price, so your plan here never changes because a workflow got chatty.",
   },
   {
     question: "What counts as a run?",
@@ -43,7 +43,7 @@ const FAQ = [
   {
     question: "How does approval in Slack or Discord work?",
     answer:
-      "An Approval node posts a message with buttons to Slack, Discord or Telegram and then parks the run. Whoever presses a button resumes it exactly where it stopped, with the answer available to every node downstream. Nobody needs a PapaFlow account to press the button.",
+      "An Approval node posts a message with buttons to Slack, Discord or Telegram and then parks the run. Whoever presses a button resumes it exactly where it stopped, with the answer available to every node downstream. Nobody needs a HERCULES account to press the button.",
   },
   {
     question: "Can I cancel or change plan?",

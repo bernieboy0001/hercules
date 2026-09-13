@@ -24,18 +24,18 @@ const DESCRIPTION =
   "Build automations on a canvas, run them on your own AI keys, and let every run finish on its own — retries, waits and human approvals included.";
 
 export const metadata: Metadata = {
-  title: "PapaFlow — automate your work with a canvas, not a codebase",
+  title: "HERCULES — automate your work with a canvas, not a codebase",
   description: DESCRIPTION,
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "PapaFlow",
-    title: "PapaFlow — automate your work with a canvas, not a codebase",
+    siteName: "HERCULES",
+    title: "HERCULES — automate your work with a canvas, not a codebase",
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "PapaFlow — automate your work with a canvas, not a codebase",
+    title: "HERCULES — automate your work with a canvas, not a codebase",
     description: DESCRIPTION,
   },
 };
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     title: "Connect",
-    body: "Paste an API key or a bot token. PapaFlow calls the provider to check it before saving, keeps the last four characters for the label, and seals the rest.",
+    body: "Paste an API key or a bot token. HERCULES calls the provider to check it before saving, keeps the last four characters for the label, and seals the rest.",
   },
   {
     title: "Build",

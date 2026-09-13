@@ -9,7 +9,7 @@ import { defineConnector } from "./define";
 
 export const GITHUB_API = "https://api.github.com";
 export const GITHUB_API_VERSION = "2026-03-10";
-export const GITHUB_USER_AGENT = "papaflow/0.1";
+export const GITHUB_USER_AGENT = "hercules/0.1";
 
 const TIMEOUT_MS = 15_000;
 

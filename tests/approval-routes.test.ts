@@ -330,7 +330,7 @@ describe("POST /api/events/discord/[connectionId]", () => {
       discordRequest({
         type: 3,
         data: { custom_id: `approve:${STEP_ID}` },
-        member: { user: { id: "42", username: "sonny", global_name: "Sonny" } },
+        member: { user: { id: "42", username: "jordan", global_name: "Jordan" } },
       }),
       context(),
     );
@@ -339,7 +339,7 @@ describe("POST /api/events/discord/[connectionId]", () => {
     // Type 7 is UPDATE_MESSAGE: the buttons go away with the decision written in their place.
     expect(await response.json()).toEqual({
       type: 7,
-      data: { content: "✅ Approved by Sonny", components: [] },
+      data: { content: "✅ Approved by Jordan", components: [] },
     });
 
     const [stepId, payload, orgId] = resumeByStepId.mock.calls[0] as [
@@ -350,7 +350,7 @@ describe("POST /api/events/discord/[connectionId]", () => {
     expect(stepId).toBe(STEP_ID);
     expect(payload).toEqual({
       approved: true,
-      by: "Sonny",
+      by: "Jordan",
       provider: "discord-bot",
       handle: "approved",
     });
@@ -381,7 +381,7 @@ describe("POST /api/events/discord/[connectionId]", () => {
   });
 
   it("answers an ephemeral 'Unsupported' for anything that is not a button", async () => {
-    const command = await discordPost(discordRequest({ type: 2, data: { name: "papaflow" } }), context());
+    const command = await discordPost(discordRequest({ type: 2, data: { name: "hercules" } }), context());
     expect(await command.json()).toEqual({
       type: 4,
       data: { content: "Unsupported", flags: 64 },
@@ -441,7 +441,7 @@ describe("POST /api/events/telegram/[connectionId] — callback_query", () => {
       callback_query: {
         id: "4382bfdwdsb323b2d9",
         data,
-        from: { id: 99, username: "sonny", first_name: "Sonny" },
+        from: { id: 99, username: "jordan", first_name: "Jordan" },
         message: {
           message_id: 7,
           chat: { id: 1234567890123, type: "group", title: "Deploys" },
@@ -488,7 +488,7 @@ describe("POST /api/events/telegram/[connectionId] — callback_query", () => {
     expect(stepId).toBe(STEP_ID);
     expect(payload).toEqual({
       approved: true,
-      by: "sonny",
+      by: "jordan",
       provider: "telegram",
       handle: "approved",
     });
@@ -502,7 +502,7 @@ describe("POST /api/events/telegram/[connectionId] — callback_query", () => {
 
     const answered = JSON.parse(String(calls[0][1]?.body)) as Record<string, unknown>;
     expect(answered).toMatchObject({ callback_query_id: "4382bfdwdsb323b2d9" });
-    expect(answered.text).toBe("✅ Approved by sonny");
+    expect(answered.text).toBe("✅ Approved by jordan");
 
     const edited = JSON.parse(String(calls[1][1]?.body)) as Record<string, unknown>;
     expect(edited).toMatchObject({ chat_id: "1234567890123", message_id: 7 });

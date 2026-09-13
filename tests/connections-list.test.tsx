@@ -49,7 +49,7 @@ describe("inboundFor", () => {
   });
 
   it("uses the URL the connector registered, and says whether Telegram accepted it", () => {
-    const url = "https://papaflow.test/api/events/telegram/cn_1";
+    const url = "https://hercules.test/api/events/telegram/cn_1";
 
     expect(inboundFor(connection({ provider: "telegram", meta: { inboundUrl: url } }))).toEqual({
       url,
@@ -64,7 +64,7 @@ describe("inboundFor", () => {
   });
 
   it("tells Stripe's owner where to paste it", () => {
-    const url = "https://papaflow.test/api/events/stripe/cn_1";
+    const url = "https://hercules.test/api/events/stripe/cn_1";
     expect(inboundFor(connection({ provider: "stripe", meta: { inboundUrl: url } }))?.hint).toContain(
       "Stripe",
     );
@@ -90,7 +90,7 @@ describe("noticeFor", () => {
       noticeFor(
         connection({
           provider: "resend",
-          meta: { domains: [{ name: "papaflow.test", status: "verified" }] },
+          meta: { domains: [{ name: "hercules.test", status: "verified" }] },
         }),
       ),
     ).toBeNull();

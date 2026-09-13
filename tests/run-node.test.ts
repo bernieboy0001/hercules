@@ -110,7 +110,7 @@ function nodeInput(
     planSlug: "free_org",
     node: {
       id: "n1",
-      type: "papaflow",
+      type: "hercules",
       data: { nodeType: "test.node", key: "test_node_1", label: "Test", inputs },
     },
     outputs: {},

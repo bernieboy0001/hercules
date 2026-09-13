@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PapaFlow",
+  title: "HERCULES",
   description: "Build, run and monitor automation workflows for your team.",
 };
 

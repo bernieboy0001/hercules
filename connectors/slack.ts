@@ -42,7 +42,7 @@ const MAX_APP_NAME = 35;
 const MAX_BOT_NAME = 80;
 
 /** The app name the manifest carries unless the user asks for another. */
-const DEFAULT_APP_NAME = "PapaFlow";
+const DEFAULT_APP_NAME = "HERCULES";
 
 /**
  * Where Slack sends button presses and events, for every connection in every organisation.
@@ -94,7 +94,7 @@ export function slackAppManifest(appName: string = DEFAULT_APP_NAME): Record<str
     display_information: {
       name,
       description:
-        "Runs your PapaFlow workflows: posts messages and asks for approvals, in channels or DMs.",
+        "Runs your HERCULES workflows: posts messages and asks for approvals, in channels or DMs.",
     },
     features: {
       bot_user: { display_name: botDisplayName(name), always_online: true },
@@ -232,7 +232,7 @@ function isRealPerson(member: Member): boolean {
   return asString(member.id) !== SLACKBOT_ID;
 }
 
-/** `DM · Sonny Sangha (@sonny)` — the real name people recognise, with the handle that is unique. */
+/** `DM · Jordan Rivera (@jordan)` — the real name people recognise, with the handle that is unique. */
 function memberLabel(member: Member): string {
   const handle = asString(member.name);
   const named =
@@ -338,7 +338,7 @@ export const slackConnector = defineConnector({
       "On Install App, install it to the workspace and copy the Bot User OAuth Token (xoxb-…) into the field above.",
       "On Basic Information, copy the Signing Secret into the optional field — Approval buttons and Slack triggers are verified with it.",
       `The manifest already switches Interactivity on and points it at ${SLACK_INTERACTIVITY_URL}, so there is nothing to paste back: presses are matched to this connection by your workspace id.`,
-      "Invite the bot to any private channel you want to post in (/invite @PapaFlow). Public channels work without an invite.",
+      "Invite the bot to any private channel you want to post in (/invite @HERCULES). Public channels work without an invite.",
       "Direct messages need no invite at all: the manifest asks for users:read, so the channel dropdown also lists everyone in the workspace as “DM · Name”, and Slack opens the conversation the first time your workflow posts.",
     ],
     manifest: slackAppManifest(),
@@ -407,7 +407,7 @@ export const slackConnector = defineConnector({
   emptyHint(kind) {
     if (kind !== "channels" && kind !== TARGETS_PICKER) return null;
     return (
-      "No channels or people yet. Invite the bot to a channel (/invite @PapaFlow), or pick a " +
+      "No channels or people yet. Invite the bot to a channel (/invite @HERCULES), or pick a " +
       "person to DM — reinstall the app from the manifest if people are missing, then reload."
     );
   },

@@ -1,9 +1,9 @@
 # verify:vercel
 
 ## SUMMARY
-Installed CLI: vercel 54.18.6 (2026-06-30, at /Users/sonnysangha/Library/pnpm/global/v11/.../node_modules/vercel). npm latest: 59.11.2 (2026-09-02). Everything the plan needs exists in 54.18.6: project add, link --yes --project, env add (one env per command, --value/--yes, stdin), env pull, git connect --yes, deploy --yes/--prod/--dry, integration add/discover/guide/accept-terms, blob create-store, and vercel.ts (the 54.18.6 bundle contains 'vercel.ts' and '@vercel/config/v1' strings). Upgrading buys: `vercel project update` (54.21.1+), non-TTY link requiring explicit team (55.0.0, breaking), env pull preserving local-only vars (56.0.0), comma-separated env targets `production,preview` (56.2.0), vercel.toml (58.0.0). 59.0.0's notes are UNVERIFIABLE: github.com/vercel/vercel has no vercel@59 tags and its CHANGELOG/releases stop at 58.4.4 (2026-07-30) even though npm 59.x declares that repo; the "59 defaults middleware to Node" search snippet is contradicted by live docs, which still say Edge is the default middleware runtime.
+Installed CLI: vercel 54.18.6 (2026-06-30, at ~/Library/pnpm/global/v11/.../node_modules/vercel). npm latest: 59.11.2 (2026-09-02). Everything the plan needs exists in 54.18.6: project add, link --yes --project, env add (one env per command, --value/--yes, stdin), env pull, git connect --yes, deploy --yes/--prod/--dry, integration add/discover/guide/accept-terms, blob create-store, and vercel.ts (the 54.18.6 bundle contains 'vercel.ts' and '@vercel/config/v1' strings). Upgrading buys: `vercel project update` (54.21.1+), non-TTY link requiring explicit team (55.0.0, breaking), env pull preserving local-only vars (56.0.0), comma-separated env targets `production,preview` (56.2.0), vercel.toml (58.0.0). 59.0.0's notes are UNVERIFIABLE: github.com/vercel/vercel has no vercel@59 tags and its CHANGELOG/releases stop at 58.4.4 (2026-07-30) even though npm 59.x declares that repo; the "59 defaults middleware to Node" search snippet is contradicted by live docs, which still say Edge is the default middleware runtime.
 
-Non-interactive flow: `vercel project add papaflow --scope sonnysanghas-projects` -> `vercel link --yes --scope sonnysanghas-projects --project papaflow` -> `vercel env add NAME production --value "..." --yes` (never combine development with production/preview; 3rd positional is a git branch) -> `vercel git connect --yes` (GitHub App must already be installed via browser; personal repo needs Owner) -> `vercel deploy --yes` (first deployment of a new project is ALWAYS production) / `vercel deploy --prod --yes`.
+Non-interactive flow: `vercel project add hercules --scope <your-vercel-team>` -> `vercel link --yes --scope <your-vercel-team> --project hercules` -> `vercel env add NAME production --value "..." --yes` (never combine development with production/preview; 3rd positional is a git branch) -> `vercel git connect --yes` (GitHub App must already be installed via browser; personal repo needs Owner) -> `vercel deploy --yes` (first deployment of a new project is ALWAYS production) / `vercel deploy --prod --yes`.
 
 Marketplace (plan ids from `vercel integration add <x> --help`): Convex slug `convex`, `--plan CONVEX_BASE` (Free), metadata region/defaultRegion/spending*; creates a project in its own Convex team, syncs CONVEX_DEPLOY_KEY (Production+Preview enabled, Custom Prefix empty); build command must be `npx convex deploy --cmd 'pnpm build'`; NEXT_PUBLIC_CONVEX_URL is written by `npx convex deploy` at build, never set manually; CONVEX_DEPLOYMENT is local-only. Clerk slug `clerk`, `--plan hobby_2025_08` ($0), metadata domain/enhanced-authentication/enhanced-b2b-saas/enhanced-administration; injects NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY + CLERK_SECRET_KEY (dev instance -> development+preview, prod -> production). Organizations are NOT a Vercel flag: enable with `clerk enable orgs` (Clerk CLI, installed) or the Clerk dashboard. Resend slug `resend/resend-email`, `--plan free`, metadata `domain` (REQUIRED, you must own it) and `region` (REQUIRED) -> RESEND_API_KEY. First install per team needs interactive terms acceptance.
 
@@ -22,10 +22,10 @@ Blob: @vercel/blob 2.8.0, `put(pathname, body, { access: 'public'|'private' })` 
 ## COMMANDS
 - vercel --version   # 54.18.6 installed; npm latest 59.11.2 (2026-09-02)
 - vercel upgrade --dry-run   # optional; upgrade only if you want `vercel project update` (>=54.21.1) or `env add NAME production,preview` (>=56.2.0); note 55+ requires --scope/--team on non-TTY link
-- vercel whoami && vercel teams ls && vercel project ls --filter papaflow
-- vercel project add papaflow --scope sonnysanghas-projects
-- vercel link --yes --scope sonnysanghas-projects --project papaflow
-- vercel project update papaflow --framework nextjs --build-command "npx convex deploy --cmd 'pnpm build'"   # CLI >= 54.21.1 only
+- vercel whoami && vercel teams ls && vercel project ls --filter hercules
+- vercel project add hercules --scope <your-vercel-team>
+- vercel link --yes --scope <your-vercel-team> --project hercules
+- vercel project update hercules --framework nextjs --build-command "npx convex deploy --cmd 'pnpm build'"   # CLI >= 54.21.1 only
 - MANUAL: (CLI 54.18.6) Dashboard > Settings > Build and Deployment: Framework Next.js, Build Command `npx convex deploy --cmd 'pnpm build'`; or commit vercel.ts with framework/buildCommand (per-deployment override)
 - MANUAL: Node 24.x is the default for new projects; pin with package.json "engines": {"node": "24.x"} (overrides dashboard). No CLI flag.
 - MANUAL: Fluid Compute is already ON for projects created after 2025-04-23 (Settings > Functions > Fluid Compute); no CLI toggle
@@ -38,7 +38,7 @@ Blob: @vercel/blob 2.8.0, `put(pathname, body, { access: 'public'|'private' })` 
 - vercel env ls && vercel env pull .env.local --yes
 - vercel env pull .env.preview.local --environment=preview --yes
 - MANUAL: install the Vercel for GitHub App with access to the repo (browser, once; personal repo requires Owner)
-- vercel git connect --yes   # or: vercel git connect https://github.com/<owner>/papaflow --yes
+- vercel git connect --yes   # or: vercel git connect https://github.com/<owner>/hercules --yes
 - vercel deploy --dry --format=json   # verify detected framework + vercel.ts before deploying
 - vercel deploy --yes   # NOTE: the first deployment of a brand-new project is always production
 - vercel deploy --prod --yes
@@ -47,8 +47,8 @@ Blob: @vercel/blob 2.8.0, `put(pathname, body, { access: 'public'|'private' })` 
 - vercel integration discover resend --format=json   # slug: resend/resend-email
 - vercel integration add convex --help   # prints plan ids (CONVEX_BASE/CONVEX_STARTER_PLUS/CONVEX_PROFESSIONAL) and metadata keys
 - MANUAL (TTY, human): vercel integration accept-terms convex ; vercel integration accept-terms clerk ; vercel integration accept-terms resend   # first install of each integration on a team
-- vercel integration add convex --plan CONVEX_BASE -m region=default -m defaultRegion=true -e production -e preview --name papaflow-convex
-- vercel integration add clerk --plan hobby_2025_08 -e production -e preview -e development --name papaflow-clerk   # add -m domain=<prod-domain> when known; enhanced-* metadata are paid add-ons
+- vercel integration add convex --plan CONVEX_BASE -m region=default -m defaultRegion=true -e production -e preview --name hercules-convex
+- vercel integration add clerk --plan hobby_2025_08 -e production -e preview -e development --name hercules-clerk   # add -m domain=<prod-domain> when known; enhanced-* metadata are paid add-ons
 - vercel integration add resend --plan free -m domain=<your-owned-domain> -m region=us-east-1 -e production -e preview -e development   # domain and region are REQUIRED
 - vercel integration list --format=json && vercel env ls   # expect CONVEX_DEPLOY_KEY (prod+preview), NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY, RESEND_API_KEY
 - vercel integration guide convex   # CONVEX_DEPLOY_KEY guidance + Next.js provider snippet (no --framework variant)
@@ -56,7 +56,7 @@ Blob: @vercel/blob 2.8.0, `put(pathname, body, { access: 'public'|'private' })` 
 - MANUAL/browser: npx convex login --vercel   # local dev login for the marketplace-created Convex team, then npx convex dev
 - vercel integration open clerk   # SSO into the Clerk dashboard (browser)
 - clerk link --app <app_id>   # Clerk CLI; then: clerk enable orgs   (Organizations are NOT settable from the Vercel CLI)
-- vercel blob create-store papaflow-media --access public --yes --environment production --environment preview --environment development
+- vercel blob create-store hercules-media --access public --yes --environment production --environment preview --environment development
 - vercel blob list-stores && vercel env ls   # expect BLOB_STORE_ID, VERCEL_OIDC_TOKEN, BLOB_WEBHOOK_PUBLIC_KEY (BLOB_READ_WRITE_TOKEN only for dashboard-created stores or handleUpload client uploads)
 
 ## NON-CONFIRMED FACTS (19 of 39)
@@ -138,7 +138,7 @@ Blob: @vercel/blob 2.8.0, `put(pathname, body, { access: 'public'|'private' })` 
 - vercel.ts is honoured by CLI 54 or only 59+. → Supported by the installed 54.18.6: its bundle (dist/chunks/chunk-EFUR47FZ.js) contains the `vercel.ts` filename and `@vercel/config/v1` strings; the feature shipped 2025-12-19 and docs state no minimum CLI version. It "executes at build time". Confirm with `v
 - How vercel.ts coexists with dashboard settings. → "Use only one configuration file: `vercel.ts` or `vercel.json`." buildCommand "overrides the Build Command in Project Settings ... for a given deployment"; same for framework, installCommand, outputDirectory, devCommand, ignoreCommand. Fluid precedence: code >
 - Preview deployments with Convex use a preview deploy key and --preview-run. → Preview Deploy Key scoped to Preview only as CONVEX_DEPLOY_KEY; "`npx convex deploy` will read `CONVEX_DEPLOY_KEY` from the environment, and use it to create a Convex deployment associated with the Git branch name"; `--preview-run 'functionName'` "will only be
-- Current account context. → `vercel whoami` = sonnysangha; teams: sonnysanghas-projects (selected) and sonnysangha-s-youtube-team; no `papaflow` project on page 1 of `vercel project ls`; `gh` is authenticated as sonnysangha; `clerk` CLI is installed with `enable orgs`/`enable billing` an
+- Current account context. → `vercel whoami` = <your-username>; teams: <your-vercel-team> (selected) and <your-vercel-team-2>; no `hercules` project on page 1 of `vercel project ls`; `gh` is authenticated as <your-username>; `clerk` CLI is installed with `enable orgs`/`enable billing` an
 
 ## SNIPPETS
 ### vercel.ts (@vercel/config 0.7.0; works on CLI 54.18.6)

@@ -106,8 +106,8 @@ const MESSAGE_UPDATE = {
   update_id: 42,
   message: {
     message_id: 7,
-    from: { id: 99, first_name: "Sonny" },
-    chat: { id: 1234567890123, type: "private", first_name: "Sonny" },
+    from: { id: 99, first_name: "Jordan" },
+    chat: { id: 1234567890123, type: "private", first_name: "Jordan" },
     text: "hello bot",
   },
 };
@@ -195,7 +195,7 @@ describe("POST /api/events/telegram/[connectionId]", () => {
           update: MESSAGE_UPDATE,
           chatId: "1234567890123",
           text: "hello bot",
-          from: { id: 99, first_name: "Sonny" },
+          from: { id: 99, first_name: "Jordan" },
         },
       },
     });
@@ -204,7 +204,7 @@ describe("POST /api/events/telegram/[connectionId]", () => {
     expect(updateConnectionMeta).toHaveBeenCalledWith({
       connectionId: CONNECTION_ID,
       orgId: ORG_ID,
-      meta: { chat_ids: [{ id: "1234567890123", type: "private", first_name: "Sonny" }] },
+      meta: { chat_ids: [{ id: "1234567890123", type: "private", first_name: "Jordan" }] },
     });
   });
 

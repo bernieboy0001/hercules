@@ -1,7 +1,7 @@
 import type { Edge } from "@xyflow/react";
 import { describe, expect, it } from "vitest";
 
-import { PAPAFLOW_NODE_TYPE, type WorkflowNodeType } from "@/components/canvas/graph-io";
+import { HERCULES_NODE_TYPE, type WorkflowNodeType } from "@/components/canvas/graph-io";
 import {
   carryOverSteps,
   lastRunFor,
@@ -22,7 +22,7 @@ function node(
 ): WorkflowNodeType {
   return {
     id,
-    type: PAPAFLOW_NODE_TYPE,
+    type: HERCULES_NODE_TYPE,
     position: { x: 0, y: 0 },
     data: { nodeType, key, label, inputs: {} },
   };

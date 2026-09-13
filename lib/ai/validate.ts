@@ -8,7 +8,7 @@ import type { ConnectorTestResult } from "@/connectors/define";
 import { keyShapeProblem } from "./key-shape";
 import { textGenerationModels } from "./model-list";
 
-const USER_AGENT = "papaflow/0.1";
+const USER_AGENT = "hercules/0.1";
 const TIMEOUT_MS = 15_000;
 
 /** Display names, shared by the connector files' `name` and by every message below. */

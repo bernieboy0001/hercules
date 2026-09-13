@@ -322,7 +322,7 @@ describe("logic.approval", () => {
     it("sends a Slack user id straight through as the channel", async () => {
       const fetchMock = reply({ ok: true, ts: "1.1", channel: "D0123" });
 
-      await expect(approvalNode.run(asking("slack", SLACK_TOKEN, "U0SONNY"))).resolves.toEqual({
+      await expect(approvalNode.run(asking("slack", SLACK_TOKEN, "U0JORDAN"))).resolves.toEqual({
         posted: true,
         provider: "slack",
       });
@@ -331,7 +331,7 @@ describe("logic.approval", () => {
       expect(fetchMock).toHaveBeenCalledTimes(1);
       const [url, init] = fetchMock.mock.calls[0] as FetchArgs;
       expect(url).toBe("https://slack.com/api/chat.postMessage");
-      expect(bodyOf(init).channel).toBe("U0SONNY");
+      expect(bodyOf(init).channel).toBe("U0JORDAN");
     });
 
     it("sends a Telegram private chat id straight through as the chat", async () => {

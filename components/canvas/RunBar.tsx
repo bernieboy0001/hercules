@@ -470,11 +470,11 @@ export function RunBar({
             <PopoverTitle className="text-sm font-medium">
               {definition?.name ?? "Manual trigger"}
             </PopoverTitle>
-            <Label htmlFor="papaflow-run-sample" className="mt-3 text-xs text-muted-foreground">
+            <Label htmlFor="hercules-run-sample" className="mt-3 text-xs text-muted-foreground">
               Sample JSON sent to the trigger
             </Label>
             <Textarea
-              id="papaflow-run-sample"
+              id="hercules-run-sample"
               rows={5}
               value={sample}
               spellCheck={false}

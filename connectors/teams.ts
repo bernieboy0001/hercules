@@ -5,7 +5,7 @@
 // (docs/research/connectors-chat.md).
 //
 // So the only way to test the URL is to use it. The test posts a real, minimal Adaptive Card — the
-// user sees "PapaFlow connected" in the channel, which is a better proof than a green tick.
+// user sees "HERCULES connected" in the channel, which is a better proof than a green tick.
 import { defineConnector } from "./define";
 
 const TIMEOUT_MS = 15_000;
@@ -66,7 +66,7 @@ export const teamsConnector = defineConnector({
         method: "POST",
         // No Authorization header on purpose: the "Anyone" trigger rejects requests that carry one.
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(adaptiveCardMessage([{ type: "TextBlock", text: "PapaFlow connected" }])),
+        body: JSON.stringify(adaptiveCardMessage([{ type: "TextBlock", text: "HERCULES connected" }])),
         signal: AbortSignal.timeout(TIMEOUT_MS),
       });
     } catch {

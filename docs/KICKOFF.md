@@ -1,6 +1,6 @@
 # Kickoff prompt for Claude Code
 
-Open a terminal in the `papaflow` folder, run `claude`, press Shift+Tab until it says plan mode, and paste this as the first message:
+Open a terminal in the `hercules` folder, run `claude`, press Shift+Tab until it says plan mode, and paste this as the first message:
 
 ---
 

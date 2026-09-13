@@ -7,12 +7,12 @@ import {
 } from "@/lib/slack-events";
 
 /**
- * `POST /api/events/slack` — the Interactivity Request URL every PapaFlow Slack app carries.
+ * `POST /api/events/slack` — the Interactivity Request URL every HERCULES Slack app carries.
  *
  * One URL for the whole deployment, because the manifest that creates a user's Slack app has to
  * name it *before* there is a connection: the app is what produces the bot token a connection is
  * made from, so a per-connection URL can only ever be a placeholder in it (which is exactly what it
- * was — `https://papaflow.example.com/api/events/slack/CONNECTION_ID`).
+ * was — `https://hercules.example.com/api/events/slack/CONNECTION_ID`).
  *
  * Which connection a delivery belongs to is therefore read out of the delivery. Slack puts the
  * workspace in every one — `team.id` inside the form-encoded interactivity payload, `team_id` on an

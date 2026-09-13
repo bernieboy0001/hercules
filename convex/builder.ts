@@ -66,7 +66,7 @@ type BuilderEdge = {
 };
 
 /** The React Flow node type the canvas renders (`components/canvas/graph-io.ts`). */
-const PAPAFLOW_NODE_TYPE = "papaflow";
+const HERCULES_NODE_TYPE = "hercules";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -88,7 +88,7 @@ function readNodes(graph: StoredGraph): BuilderNode[] {
     const position = isRecord(entry.position) ? entry.position : {};
     nodes.push({
       id,
-      type: str(entry.type) ?? PAPAFLOW_NODE_TYPE,
+      type: str(entry.type) ?? HERCULES_NODE_TYPE,
       position: {
         x: typeof position.x === "number" ? position.x : 0,
         y: typeof position.y === "number" ? position.y : 0,
@@ -432,7 +432,7 @@ export const addNodeInternal = internalMutation({
     const x = nodes.length === 0 ? FIRST_X : Math.max(...nodes.map((node) => node.position.x)) + COLUMN_WIDTH;
     const node: BuilderNode = {
       id: newId(),
-      type: PAPAFLOW_NODE_TYPE,
+      type: HERCULES_NODE_TYPE,
       position: { x, y: ROW_Y },
       data: { nodeType, key, label: label || nodeType, inputs: isRecord(inputs) ? inputs : {} },
     };

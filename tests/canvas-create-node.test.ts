@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { centredNodePosition, createNodeFromPalette } from "@/components/canvas/create-node";
-import { PAPAFLOW_NODE_TYPE, type WorkflowNodeType } from "@/components/canvas/graph-io";
+import { HERCULES_NODE_TYPE, type WorkflowNodeType } from "@/components/canvas/graph-io";
 import { NODES } from "@/nodes/registry";
 
 /**
@@ -16,7 +16,7 @@ import { NODES } from "@/nodes/registry";
 function existing(nodeType: string, key: string): WorkflowNodeType {
   return {
     id: `id-${key}`,
-    type: PAPAFLOW_NODE_TYPE,
+    type: HERCULES_NODE_TYPE,
     position: { x: 0, y: 0 },
     data: { nodeType, key, label: "whatever", inputs: {}, status: "idle" },
   };
@@ -26,7 +26,7 @@ describe("createNodeFromPalette", () => {
   it("puts the node exactly where it was asked for", () => {
     const node = createNodeFromPalette([], "http.request", { x: 412.5, y: -80 }, "a");
     expect(node?.position).toEqual({ x: 412.5, y: -80 });
-    expect(node?.type).toBe(PAPAFLOW_NODE_TYPE);
+    expect(node?.type).toBe(HERCULES_NODE_TYPE);
     expect(node?.id).toBe("a");
   });
 

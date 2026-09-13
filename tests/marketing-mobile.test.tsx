@@ -77,7 +77,7 @@ describe("the public header", () => {
   const html = render(<SiteHeader />);
 
   it("keeps the wordmark, the theme control, one auth control and the menu", () => {
-    expect(html).toContain("PapaFlow");
+    expect(html).toContain("HERCULES");
     expect(html).toContain('aria-label="Change theme"');
     expect(html).toContain('aria-label="Open menu"');
     expect(html).toContain('href="/sign-in"');

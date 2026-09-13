@@ -241,7 +241,7 @@ describe("templateFeature", () => {
       nodes: [
         {
           id: "post",
-          type: "papaflow",
+          type: "hercules",
           position: { x: 0, y: 0 },
           data: { nodeType: "slack.postMessage", key: "post", label: "Post", inputs: {} },
         },

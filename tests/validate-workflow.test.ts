@@ -24,7 +24,7 @@ function graph(nodes: NodeSpec[], edges: EdgeSpec[] = []) {
   return {
     nodes: nodes.map((node) => ({
       id: node.id,
-      type: "papaflow",
+      type: "hercules",
       position: { x: 0, y: 0 },
       data: {
         nodeType: node.type,
@@ -213,7 +213,7 @@ describe("validateWorkflow", () => {
   });
 
   it("does not ask for a connection a node treats as optional", () => {
-    // `email.send` sends from PapaFlow's own address without one (`credentialOptional`).
+    // `email.send` sends from HERCULES's own address without one (`credentialOptional`).
     expect(NODES["email.send"].credentialOptional).toBe(true);
     const result = validateWorkflow(
       graph(

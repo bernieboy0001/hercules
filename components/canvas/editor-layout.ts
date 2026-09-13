@@ -30,7 +30,7 @@ export const CONFIG_PANEL_OVERLAY_WIDTH = 900;
  * user actually made.
  *
  * @param width  Viewport width in CSS pixels (`window.innerWidth`).
- * @param stored The raw `papaflow:nodes-collapsed` value, or null when nothing is stored.
+ * @param stored The raw `hercules:nodes-collapsed` value, or null when nothing is stored.
  */
 export function initialPaletteCollapsed(width: number, stored: string | null): boolean {
   if (stored === "1") return true;

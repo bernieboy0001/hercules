@@ -8,7 +8,7 @@
  */
 
 /** The node search box. `/` focuses it from anywhere on the canvas. */
-export const NODE_SEARCH_INPUT_ID = "papaflow-node-search";
+export const NODE_SEARCH_INPUT_ID = "hercules-node-search";
 
 export type Shortcut = {
   /** Rendered as one `<kbd>` per entry. `⌘` is substituted for Ctrl on Apple platforms. */

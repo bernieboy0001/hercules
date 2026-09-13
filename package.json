@@ -9,7 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "convex:dev": "CONVEX_ALLOW_ANONYMOUS=false npx convex dev",
+    "convex:dev": "cross-env CONVEX_ALLOW_ANONYMOUS=false npx convex dev",
     "workflow:web": "npx workflow web"
   },
   "dependencies": {
@@ -57,6 +57,7 @@
     "@vercel/config": "0.7.0",
     "babel-plugin-react-compiler": "1.0.0",
     "convex-test": "0.0.56",
+    "cross-env": "7.0.3",
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "4.3.3",

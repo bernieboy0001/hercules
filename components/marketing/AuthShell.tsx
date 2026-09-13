@@ -62,7 +62,7 @@ export function AuthShell({
           className="flex w-fit items-center gap-1.5 rounded-md font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeftIcon className="size-3.5" aria-hidden />
-          papaflow.app
+          hercules.app
         </Link>
       </aside>
 
@@ -73,7 +73,7 @@ export function AuthShell({
         >
           <BrandMark />
           <span className="pf-display text-base font-semibold tracking-tight">
-            PapaFlow
+            HERCULES
           </span>
         </Link>
 
