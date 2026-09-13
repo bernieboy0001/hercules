@@ -6,9 +6,10 @@ import { NODES, buildRegistry, nodeCatalogue } from "@/nodes/registry";
 
 const TYPE_PATTERN = /^[a-z]+\.[a-zA-Z]+$/;
 
-/** The four nodes Phase 11 put behind `pro_connectors` — one per Pro connector. Sorted. */
+/** The nodes Phase 11 put behind `pro_connectors` — one per Pro connector. Sorted. */
 const PRO_NODES = [
   "airtable.createRecord",
+  "composio.action",
   "linear.createIssue",
   "notion.createPage",
   "slack.postMessage",
@@ -48,13 +49,14 @@ describe("node registry", () => {
 
   it("builds a catalogue for a plan's features", () => {
     const catalogue = nodeCatalogue(["core_connectors"]);
-    expect(catalogue).toHaveLength(27);
+    expect(catalogue).toHaveLength(28);
     expect(catalogue.map((entry) => entry.type).sort()).toEqual([
       "ai.agent",
       "ai.classify",
       "ai.extract",
       "ai.llm",
       "airtable.createRecord",
+      "composio.action",
       "discord.postMessage",
       "email.send",
       "form.trigger",
@@ -134,6 +136,7 @@ describe("node registry", () => {
       "data",
       "data",
       "data",
+      "data",
       "action",
       "action",
     ]);
@@ -141,7 +144,7 @@ describe("node registry", () => {
 
   it("dims exactly the gated nodes for an org with no paid features", () => {
     const catalogue = nodeCatalogue([]);
-    expect(catalogue).toHaveLength(27);
+    expect(catalogue).toHaveLength(28);
 
     const blocked = catalogue.filter((entry) => !entry.allowed).map((entry) => entry.type);
     expect(blocked.sort()).toEqual(Object.keys(GATED_NODES).sort());
@@ -154,7 +157,7 @@ describe("node registry", () => {
 
   it("allows every node on Pro", () => {
     const catalogue = nodeCatalogue(featuresForPlan("pro"));
-    expect(catalogue).toHaveLength(27);
+    expect(catalogue).toHaveLength(28);
     for (const entry of catalogue) expect(entry.allowed).toBe(true);
   });
 

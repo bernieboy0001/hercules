@@ -40,6 +40,7 @@ const SAFE_META_KEYS: ReadonlySet<string> = new Set([
   "workspace_name",
   "domains",
   "limitRemaining",
+  "toolkits",
 ]);
 
 /** A connector should never put one of these on `meta`; if one does, the value stops here. */

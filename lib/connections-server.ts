@@ -8,10 +8,12 @@ import {
   externalIdOf,
   MODELS_PICKER,
   normalizeSecretInput,
+  TOOLS_PICKER,
   type ConnectorDef,
   type PickerOption,
 } from "@/connectors/define";
 import { CONNECTORS } from "@/connectors/registry";
+import { revokeAccount } from "@/lib/composio-server";
 import { isTextGenerationModel } from "@/lib/ai/model-list";
 import * as engine from "@/lib/engine-client";
 import { featureLabel } from "@/lib/plans";
@@ -243,6 +245,19 @@ export async function pickConnectionOptions(args: {
     if (stored.length > 0 || !pick) return stored;
   }
 
+  if (args.kind === TOOLS_PICKER) {
+    const composio = (meta.composio ?? {}) as Record<string, unknown>;
+    const raw = Array.isArray(composio.tools) ? composio.tools : [];
+    const options: PickerOption[] = [];
+    for (const entry of raw) {
+      if (typeof entry !== "object" || entry === null) continue;
+      const { id, label } = entry as Record<string, unknown>;
+      if (typeof id !== "string" || !id) continue;
+      options.push({ id, label: typeof label === "string" ? label : id });
+    }
+    if (options.length > 0) return options;
+  }
+
   if (!pick) {
     throw new ConnectionRequestError(
       400,
@@ -443,6 +458,30 @@ export async function removeConnection(args: {
   connectionId: string;
   orgId: string;
 }): Promise<void> {
-  await connectionInOrg(args.connectionId, args.orgId);
+  const row = await connectionInOrg(args.connectionId, args.orgId);
+
+  // Revoke the linked account at Composio before the local row goes (plan 2026-09-13-composio-
+  // connections, "Delete flow"). Local deletion is the part the org's UI depends on, so a failed
+  // revoke — or a row whose envelope will no longer open — is logged and the delete proceeds: a
+  // zombie on Composio harms nobody, a resurrected connection here would.
+  if (row.provider === "composio" && row.kind === "composio") {
+    try {
+      const secret = openStoredSecret(row, args.orgId, args.connectionId);
+      const apiKey = typeof secret.composioKey === "string" ? secret.composioKey.trim() : "";
+      const composio = ((row.meta as Record<string, unknown> | undefined)?.composio ?? {}) as Record<
+        string,
+        unknown
+      >;
+      const accountId = typeof composio.accountId === "string" ? composio.accountId : "";
+      if (apiKey && accountId) {
+        await revokeAccount(apiKey, accountId).catch((error: unknown) =>
+          console.error("connections: composio revoke failed", { connectionId: args.connectionId }, error),
+        );
+      }
+    } catch {
+      // The envelope would not open — the row is broken local state anyway, so just delete it.
+    }
+  }
+
   await engine.removeConnection({ connectionId: args.connectionId, orgId: args.orgId });
 }

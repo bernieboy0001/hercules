@@ -30,6 +30,7 @@ import { featureLabel } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 
 import { ConnectorSetupSection } from "./ConnectorSetup";
+import { ComposioAppPicker } from "./ComposioAppPicker";
 import { ProviderPicker } from "./ProviderPicker";
 
 /**
@@ -93,6 +94,39 @@ export function AddConnectionDialog({
 
   const plan = useQuery(api.plan.current);
 
+  // The Composio flow is two steps once the org holds a project key: pick *which app* to connect
+  // (the key itself was step one). The key row's `meta.toolkits` — captured when the key was
+  // tested, CLAUDE.md rule 11 — is the app list; the account rows say which apps are already
+  // connected so the picker offers each one once.
+  const connections = useQuery(api.connections.list);
+  const composioKeyRow = useMemo(() => {
+    if (!connections) return undefined;
+    return connections.find(
+      (row) => row.provider === "composio" && row.kind === "apiKey" && row.status === "active",
+    );
+  }, [connections]);
+  const composioToolkits = useMemo(() => {
+    const raw = (composioKeyRow?.meta as Record<string, unknown> | undefined)?.toolkits;
+    if (!Array.isArray(raw)) return [];
+    const toolkits: { id: string; label: string }[] = [];
+    for (const entry of raw) {
+      if (typeof entry !== "object" || entry === null) continue;
+      const { id, label } = entry as { id?: unknown; label?: unknown };
+      if (typeof id !== "string" || !id) continue;
+      toolkits.push({ id, label: typeof label === "string" ? label : id });
+    }
+    return toolkits.sort((a, b) => (a.label < b.label ? -1 : a.label > b.label ? 1 : 0));
+  }, [composioKeyRow]);
+  const composioConnected = useMemo(() => {
+    const slugs: string[] = [];
+    for (const row of connections ?? []) {
+      if (row.provider !== "composio" || row.kind !== "composio") continue;
+      const toolkit = (row.meta as { composio?: { toolkit?: unknown } } | undefined)?.composio?.toolkit;
+      if (typeof toolkit === "string" && toolkit) slugs.push(toolkit);
+    }
+    return new Set(slugs);
+  }, [connections]);
+
   const entries = useMemo(() => {
     const catalogue = connectorCatalogue(plan?.features ?? []);
     // Until the plan query lands nothing is dimmed — a flash of "Pro" on a connector the org
@@ -107,18 +141,31 @@ export function AddConnectionDialog({
   /** Only offer "Back" when this dialog owns the choice of provider. */
   const onBack = provider ? undefined : () => setPicked(null);
 
-  const form = definition ? (
-    <ConnectionForm
-      // Keyed by provider so going Back and picking another app starts from empty fields
-      // rather than carrying the previous provider's typed key in state.
-      key={definition.provider}
-      entry={definition}
-      onBack={onBack}
-      onDone={(created) => {
-        setOpen(false);
-        onCreated?.(created);
-      }}
-    />
+  // Composio connects in two steps: the key form only until a key exists, then the app picker.
+  // After the key form saves, `onDone` keeps the dialog open and the `connections` subscription
+  // flips this render to the app picker (the created key row lands in `composioKeyRow`).
+  const appPicker = definition?.provider === "composio" && composioToolkits.length > 0;
+  const step = definition ? (
+    appPicker ? (
+      <ComposioAppPicker
+        key="apps"
+        toolkits={composioToolkits}
+        connected={composioConnected}
+        onBack={onBack}
+      />
+    ) : (
+      <ConnectionForm
+        // Keyed so the app picker and the form do not share state, and so going Back and picking
+        // another app starts from empty fields rather than carrying a typed key along.
+        key={definition.provider}
+        entry={definition}
+        onBack={onBack}
+        onDone={(created) => {
+          if (definition.provider !== "composio") setOpen(false);
+          onCreated?.(created);
+        }}
+      />
+    )
   ) : null;
 
   return (
@@ -156,10 +203,10 @@ export function AddConnectionDialog({
                 when={{ feature: `org:${definition.requiresFeature}` }}
                 fallback={<ProviderWall entry={definition} onBack={onBack} />}
               >
-                {form}
+                {step}
               </Show>
             ) : (
-              form
+              step
             )
           ) : (
             <>

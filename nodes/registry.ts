@@ -1,4 +1,5 @@
 import { airtableCreateRecordNode } from "./actions/airtable-create-record";
+import { composioActionNode } from "./actions/composio-action";
 import { discordPostNode } from "./actions/discord-post";
 import { emailSend } from "./actions/email-send";
 import { githubCreateIssueNode } from "./actions/github-create-issue";
@@ -56,6 +57,7 @@ const DEFINITIONS: readonly AnyNodeDef[] = [
   airtableCreateRecordNode,
   linearCreateIssueNode,
   githubCreateIssueNode,
+  composioActionNode,
   httpRequest,
   emailSend,
 ];

@@ -94,7 +94,7 @@ export default defineSchema({
     provider: v.string(),
     kind: v.union(
       v.literal("apiKey"), v.literal("oauth2"), v.literal("webhookUrl"),
-      v.literal("botToken"), v.literal("signingSecret"),
+      v.literal("botToken"), v.literal("signingSecret"), v.literal("composio"),
     ),
     label: v.string(),
     secret: sealed,

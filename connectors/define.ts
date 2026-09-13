@@ -206,6 +206,16 @@ export const TARGETS_PICKER = "targets";
 export const MODELS_PICKER = "models";
 
 /**
+ * The picker kind a Composio node's `tool` field asks for.
+ *
+ * Like `MODELS_PICKER`, no connector implements it: the account row's connect-time capture wrote the
+ * toolkit's tool list into `meta.composio.tools` (hard rule 11), so `pickConnectionOptions` answers
+ * this one from the stored row — no provider round-trip, and the sealed credential is never opened
+ * to fill a dropdown.
+ */
+export const TOOLS_PICKER = "tools";
+
+/**
  * The kinds that hold exactly one bearer-style token — the only ones a node can authenticate with
  * generically. A `webhookUrl` is an address, a `signingSecret` verifies what arrives; neither is
  * something to send in a header.

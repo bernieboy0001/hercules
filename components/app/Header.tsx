@@ -22,6 +22,7 @@ const NAV_LINKS = [
   { href: "/agents", label: "Agents" },
   { href: "/runs", label: "Runs" },
   { href: "/connections", label: "Connections" },
+  { href: "/integrations", label: "Integrations" },
   { href: "/settings", label: "Settings" },
 ] as const;
 
