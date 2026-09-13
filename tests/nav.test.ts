@@ -10,6 +10,7 @@ import { activeNavHref } from "@/components/app/Header";
 describe("activeNavHref", () => {
   it("matches a section exactly", () => {
     expect(activeNavHref("/w")).toBe("/w");
+    expect(activeNavHref("/agents")).toBe("/agents");
     expect(activeNavHref("/runs")).toBe("/runs");
     expect(activeNavHref("/connections")).toBe("/connections");
     expect(activeNavHref("/settings")).toBe("/settings");
@@ -32,5 +33,6 @@ describe("activeNavHref", () => {
     expect(activeNavHref("/pricing")).toBeNull();
     // A sibling route that merely starts with the same characters is not inside the section.
     expect(activeNavHref("/workspaces")).toBeNull();
+    expect(activeNavHref("/agenda")).toBeNull();
   });
 });

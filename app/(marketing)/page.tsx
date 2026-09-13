@@ -19,6 +19,7 @@ import {
 } from "@/components/marketing/primitives";
 import { WorksWith } from "@/components/marketing/WorksWith";
 import { connectorCatalogue } from "@/connectors/registry";
+import { AGENTS } from "@/lib/agents";
 
 const DESCRIPTION =
   "Build automations on a canvas, run them on your own AI keys, and let every run finish on its own — retries, waits and human approvals included.";
@@ -231,6 +232,43 @@ export default function LandingPage() {
           </div>
 
           <WorksWith />
+        </div>
+      </section>
+
+      {/* The Agent shop */}
+      <section
+        id="agents"
+        className={`${SECTION} scroll-mt-16 py-14 sm:scroll-mt-20 sm:py-24`}
+      >
+        <div className="flex flex-col gap-8 sm:gap-10">
+          <div className="flex flex-col gap-4">
+            <Eyebrow className="max-w-sm">The Agent shop</Eyebrow>
+            <h2 className="pf-display max-w-2xl text-[1.75rem]/[1.2] font-semibold tracking-[-0.015em] text-balance sm:text-4xl">
+              Pick an agent instead of drawing a graph.
+            </h2>
+            <p className="max-w-2xl text-sm text-pretty text-muted-foreground sm:text-base">
+              {AGENTS.length} ready-made agents, each one an AI Agent node with the goal and the
+              trigger already written. Pick one and the workflow appears on your canvas — then any
+              part of it is yours to change.
+            </p>
+          </div>
+
+          <ul className="grid gap-4 md:grid-cols-2">
+            {AGENTS.map((agent) => (
+              <li key={agent.id}>
+                <Link
+                  href="/agents"
+                  className="flex flex-col gap-2.5 rounded-xl border border-border bg-card p-5 transition-colors hover:border-ring hover:bg-muted/40"
+                >
+                  <p className="text-xs tracking-wide text-muted-foreground uppercase">
+                    {agent.category}
+                  </p>
+                  <p className="text-lg font-semibold tracking-tight">{agent.name}</p>
+                  <p className="text-sm text-pretty text-muted-foreground">{agent.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

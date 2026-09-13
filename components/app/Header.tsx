@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/w", label: "Workflows" },
+  { href: "/agents", label: "Agents" },
   { href: "/runs", label: "Runs" },
   { href: "/connections", label: "Connections" },
   { href: "/settings", label: "Settings" },
