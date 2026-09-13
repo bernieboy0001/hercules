@@ -110,8 +110,12 @@ export default function LandingPage() {
     <>
       {/* Hero */}
       <section
-        className={`${SECTION} flex flex-col items-start gap-5 pt-10 pb-10 sm:gap-6 sm:pt-24 sm:pb-12`}
+        className={`${SECTION} relative isolate flex flex-col items-start gap-5 overflow-hidden pt-10 pb-10 sm:gap-6 sm:pt-24 sm:pb-12`}
       >
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-[radial-gradient(80%_80%_at_50%_-5%,color-mix(in_oklch,var(--pf-accent)_18%,transparent),transparent_75%)]"
+        />
         <Eyebrow className="w-full max-w-md">Durable workflow automation</Eyebrow>
 
         {/*
