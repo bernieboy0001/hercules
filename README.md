@@ -53,7 +53,37 @@ step that makes the call.
 > `<Show>`, org billing, `CheckoutButton`) · Vercel Workflow SDK 5 (beta) for
 > durable runs · eve 0.49 for the agents · Vercel AI SDK v7 with direct provider
 > packages · React Flow 12 · Tailwind CSS v4 + shadcn (Base UI) · TypeScript
-> strict · vitest (1,494 tests) · pnpm
+> strict · vitest (1,571 tests) · pnpm
+
+---
+
+## 🏆 Hackathon submission
+
+**Live app:** https://hercules-ecru.vercel.app · **Repo:** https://github.com/bernieboy0001/hercules (public)
+
+**📽 Two-minute demo:** _link to be added once recorded_ — until then, `docs/agent-shop-demo.md` is the exact script the video follows.
+
+**External apps used**
+
+| App | Role in this build |
+| --- | --- |
+| **Vercel** | Hosting (Fluid compute), **Vercel Workflows** for every durable run, the two **eve** agent services, AI Gateway |
+| **Convex** | All app state (workflows, runs, steps, sealed credentials, schedules, usage) + realtime canvas subscriptions + the **scheduler** that fires published schedules |
+| **Clerk** | Auth, **organizations** (the tenant boundary — each workspace is an org), B2B **billing**, and the `pla`/`fea` session claims that gate every feature |
+| **React Flow** | The visual canvas editor |
+| **Vercel AI SDK v7** | Runs every LLM / Extract / Classify / Agent node on the org's own provider key |
+| **20+ connectors (Slack, Discord, Telegram, GitHub, Notion, Airtable, Linear, Stripe, Resend, OpenAI, Anthropic, Google, Groq, Mistral, DeepSeek, xAI, ElevenLabs, fal, Composio …)** | Users connect their own accounts inside the app — credentials are sealed, never app-owned |
+
+**How reliability was tested**
+
+- **Automated suite:** 1,571 unit tests across 100 files (vitest) — green on the day of submission, and every feature commit goes green on `pnpm test` plus `pnpm typecheck` (strict) and `pnpm lint`.
+- **Durable execution:** every run is a Vercel Workflow whose single `runNode` step is idempotent and retry-aware — 4xx throw `FatalError` (no retry), 429 throws `RetryableError` with a retry-after, 5xx uses the platform's default retries, and a step that already succeeded returns its stored output when replayed. Durable behavior across deploys is exercised live with the `npx workflow web` run inspector.
+- **Secrets:** credentials are AES-256-GCM ciphertext in Convex, bound to the org and row that own them, never reaching step inputs/outputs or client queries — covered by seal/open round-trip tests.
+- **Authorization:** feature gating is enforced on three layers (UI `<Show>`, server `has()`, and Convex mutations + `runNode` checking `PLAN_LIMITS`/`requiresFeature` at run time), each with dedicated tests.
+- **Trigger security:** signed webhooks (HMAC for Stripe/Slack/GitHub/Airtable/Resend, Ed25519 for Discord) are verified on the raw body before parsing, with signature-mismatch tests; inbound triggers answer 200 before the run starts.
+- **Today's production deploy:** freshly deployed to Vercel ([hercules-ecru.vercel.app](https://hercules-ecru.vercel.app)) against Convex at `agreeable-starfish-76.convex.cloud` with all env vars set — verified rendering end-to-end.
+
+**Run it yourself:** [Getting Started](#-getting-started) — three SaaS sign-ups (Clerk, Convex, Vercel), a handful of env secrets, one `pnpm install`.
 
 ---
 
